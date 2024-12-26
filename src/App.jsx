@@ -56,6 +56,16 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleProductUpdate = (productId, updatedProduct) => {
+    setAllProducts(prevProducts => 
+      prevProducts.map(product => 
+        product.id === productId 
+          ? { ...product, ...updatedProduct }
+          : product
+      )
+    );
+  };
+
   return (
     <>
       <SEO />
@@ -77,6 +87,7 @@ function App() {
                     currentPage={currentPage}
                     totalPages={totalPages}
                     onPageChange={handlePageChange}
+                    onProductUpdate={handleProductUpdate}
                   />
                   
                   {totalPages > 1 && (
