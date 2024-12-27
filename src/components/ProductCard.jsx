@@ -151,7 +151,7 @@ const ProductCard = ({ product, onEdit, loading }) => {
             <div className="flex items-center gap-2 pt-3 border-t border-gray-100">
               <button
                 className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 transition-colors"
-                onClick={() => window.open(`https://t.me/share/url?url=${encodeURIComponent(window.location.origin + '/product/' + product.id)}`, '_blank')}
+                onClick={() => window.open(`https://t.me/share/url?url=${encodeURIComponent(`${window.location.origin}/product/${product.id}`)}`, '_blank')}
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.53-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.46-.42-1.4-.88.03-.24.37-.49 1.03-.74 4.03-1.75 6.72-2.91 8.07-3.48 3.85-1.63 4.64-1.91 5.17-1.92.11 0 .37.03.54.18.17.15.21.36.23.47-.01.06.01.24-.01.38z"/>
@@ -161,7 +161,7 @@ const ProductCard = ({ product, onEdit, loading }) => {
               <button
                 className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 transition-colors"
                 onClick={() => {
-                  navigator.clipboard.writeText(window.location.origin + '/product/' + product.id);
+                  navigator.clipboard.writeText(`${window.location.origin}/product/${product.id}`);
                 }}
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
