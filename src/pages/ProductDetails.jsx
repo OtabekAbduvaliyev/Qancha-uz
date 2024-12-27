@@ -51,13 +51,15 @@ const ProductDetails = () => {
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="product" />
         <meta property="og:title" content={product.name} />
-        <meta property="og:image" content={product.image || '/src/assets/main.png'} />
+        <meta property="og:image" content={product.image} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta property="og:url" content={`${window.location.origin}/product/${product.id}`} />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={product.name} />
-        <meta name="twitter:image" content={product.image || '/src/assets/main.png'} />
+        <meta name="twitter:image" content={product.image} />
       </Helmet>
 
       <div className="min-h-screen bg-gray-50 py-12">

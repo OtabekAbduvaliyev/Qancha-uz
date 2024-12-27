@@ -153,8 +153,13 @@ const ProductCard = ({ product, onEdit, loading }) => {
                 className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 transition-colors"
                 onClick={() => {
                   const productUrl = `${window.location.origin}/product/${product.id}`;
-                  const shareText = `${product.name}\n${productUrl}`;
-                  window.open(`https://t.me/share/url?url=${encodeURIComponent(productUrl)}&text=${encodeURIComponent(product.name)}`, '_blank');
+                  window.open(
+                    `https://t.me/share/url?` + 
+                    `url=${encodeURIComponent(productUrl)}` +
+                    `&text=${encodeURIComponent(product.name)}` +
+                    `&image=${encodeURIComponent(product.image)}`,
+                    '_blank'
+                  );
                 }}
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
