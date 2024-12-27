@@ -153,11 +153,11 @@ const ProductCard = ({ product, onEdit, loading }) => {
                 className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 transition-colors"
                 onClick={() => {
                   const productUrl = `${window.location.origin}/product/${product.id}`;
-                  const shareText = `<b>${product.name}</b>\n\n<a href="${productUrl}">Ko'rish</a>`;
                   window.open(
                     `https://t.me/share/url?` + 
                     `url=${encodeURIComponent(productUrl)}` +
-                    `&text=${encodeURIComponent(shareText)}`,
+                    `&text=${encodeURIComponent(product.name)}` +
+                    `&image=${encodeURIComponent(product.image)}`,
                     '_blank'
                   );
                 }}
