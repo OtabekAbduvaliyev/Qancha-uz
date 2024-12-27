@@ -45,20 +45,18 @@ const ProductDetails = () => {
   return (
     <>
       <Helmet>
-        <title>{product.name} - Qancha.uz</title>
-        <meta name="description" content={`${product.name} - Narxi: ${product.lowestPrice?.toLocaleString()} - ${product.highestPrice?.toLocaleString()} so'm`} />
+        <title>{product.name}</title>
+        <meta name="description" content={product.name} />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="product" />
         <meta property="og:title" content={product.name} />
-        <meta property="og:description" content={`Narxi: ${product.lowestPrice?.toLocaleString()} - ${product.highestPrice?.toLocaleString()} so'm`} />
         <meta property="og:image" content={product.image || '/src/assets/main.png'} />
-        <meta property="og:url" content={window.location.href} />
+        <meta property="og:url" content={`${window.location.origin}/product/${product.id}`} />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={product.name} />
-        <meta name="twitter:description" content={`Narxi: ${product.lowestPrice?.toLocaleString()} - ${product.highestPrice?.toLocaleString()} so'm`} />
         <meta name="twitter:image" content={product.image || '/src/assets/main.png'} />
       </Helmet>
 
