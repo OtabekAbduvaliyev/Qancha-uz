@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet';
 
 export const SEO = ({ title, description, keywords }) => {
-  const defaultTitle = "Qancha.uz - Uzbekistan's Premier Marketplace";
+  const defaultTitle = "Qancha.uz - Kerak narxni shu yerdan toping!";
   const defaultDescription = "Your trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you.";
   const defaultKeywords = "marketplace, uzbekistan, online shopping, buy, sell, products, qancha";
 

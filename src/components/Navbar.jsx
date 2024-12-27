@@ -101,7 +101,7 @@ const Navbar = () => {
                           <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                           </svg>
-                          Add Product
+                          Mahsulot qo'shish
                         </button>
                       )}
                       <button
@@ -111,7 +111,7 @@ const Navbar = () => {
                         <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                         </svg>
-                        Sign out
+                        Chiqish
                       </button>
                     </div>
                   )}
@@ -122,7 +122,7 @@ const Navbar = () => {
                     onClick={() => setIsAuthModalOpen(true)}
                     className="text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50/80 px-4 py-1.5 rounded-full transition-all"
                   >
-                    Sign in
+                    Kirish
                   </button>
                   <button
                     onClick={() => setShowLoginButton(false)}
