@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import AuthModal from './auth/AuthModal';
 import AdminPanel from './admin/AdminPanel';
+import { Link } from 'react-router-dom';
 
 const ADMIN_EMAIL = 'otabekabduvaliyev1910@gmail.com';
 
@@ -68,7 +69,9 @@ const Navbar = () => {
         <div className="max-w-[1200px] mx-auto px-4">
           <div className="flex justify-between h-14">
             <div className="flex items-center">
-              <span className="text-lg font-medium text-gray-900">Qancha.uz</span>
+              <Link to="/" className="text-lg font-medium text-gray-900 hover:text-gray-700 transition-colors">
+                Qancha.uz
+              </Link>
             </div>
 
             <div className="flex items-center">
@@ -89,24 +92,36 @@ const Navbar = () => {
                   </button>
 
                   {showUserMenu && (
-                    <div className="absolute right-0 mt-1 w-48 bg-white rounded-xl shadow-lg py-1.5 border border-gray-100 transform opacity-100 scale-100 transition-all duration-200">
+                    <div className="absolute right-0 mt-1 w-48 bg-white/95 backdrop-blur-md rounded-xl shadow-sm border border-gray-100 transform opacity-100 scale-100 transition-all duration-200">
                       {isAdmin && (
-                        <button
-                          onClick={() => {
-                            setIsAdminPanelOpen(true);
-                            setShowUserMenu(false);
-                          }}
-                          className="flex items-center w-full px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50/80 transition-colors"
-                        >
-                          <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                          </svg>
-                          Mahsulot qo'shish
-                        </button>
+                        <>
+                          <button
+                            onClick={() => {
+                              setIsAdminPanelOpen(true);
+                              setShowUserMenu(false);
+                            }}
+                            className="flex items-center w-full px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50/80 transition-colors"
+                          >
+                            <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                            Mahsulot qo'shish
+                          </button>
+                          <Link
+                            to="/bulk-upload"
+                            onClick={() => setShowUserMenu(false)}
+                            className="flex items-center w-full px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50/80 transition-colors"
+                          >
+                            <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                            </svg>
+                            Ommaviy yuklash
+                          </Link>
+                        </>
                       )}
                       <button
                         onClick={handleLogout}
-                        className="flex items-center w-full px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50/80 transition-colors"
+                        className="flex items-center w-full px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50/80 transition-colors"
                       >
                         <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />

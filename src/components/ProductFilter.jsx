@@ -11,19 +11,20 @@ const ProductFilter = ({ selectedType, onTypeChange, productTypes }) => {
             : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
           }`}
       >
-        All Products
+        Barcha mahsulotlar
       </button>
       {productTypes.map((type) => (
         <button
-          key={type}
+          key={type.en}
           onClick={() => onTypeChange(type)}
           className={`px-4 py-2 text-sm rounded-xl transition-all whitespace-nowrap
-            ${selectedType === type 
+            ${(selectedType && selectedType.en === type.en)
               ? 'bg-gray-900 text-white' 
               : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
         >
-          {type}
+          <span className="font-medium">{type.uz}</span>
+          <span className="text-xs text-gray-500 ml-1">({type.en})</span>
         </button>
       ))}
     </div>

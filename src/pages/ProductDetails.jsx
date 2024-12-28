@@ -98,6 +98,12 @@ const ProductDetails = () => {
                   </div>
 
                   <div className="space-y-6">
+                    {product.description && (
+                      <div>
+                        <h2 className="text-lg font-semibold text-gray-900 mb-2">Mahsulot haqida</h2>
+                        <p className="text-gray-600">{product.description}</p>
+                      </div>
+                    )}
                     <div>
                       <h2 className="text-lg font-medium text-gray-900 mb-2">Narx oralig'i</h2>
                       <div className="flex items-center space-x-4">

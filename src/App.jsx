@@ -10,6 +10,7 @@ import { AlertProvider } from './contexts/AlertContext'
 import { db } from './firebase'
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore'
 import { SEO } from './components/SEO';
+import BulkProductUpload from './components/BulkProductUpload';
 
 const ITEMS_PER_PAGE = 12;
 
@@ -69,15 +70,36 @@ function App() {
     });
   }, [searchTerm, selectedType, currentPage]);
 
-  // Get unique product types
-  const productTypes = [...new Set(allProducts.map(product => product.type).filter(Boolean))];
+  // Get unique product types and convert to Uzbek
+  const typeMapping = {
+    'Food': 'Oziq-ovqat',
+    'Technology': 'Texnologiya',
+    'Clothing': 'Kiyim',
+    'Health': 'Salomatlik',
+    'Home': 'Uy-ro\'zg\'or',
+    'Beauty': 'Go\'zallik',
+    'Sports': 'Sport',
+    'Books': 'Kitoblar',
+    'Toys': 'O\'yinchoqlar',
+    'Transport': 'Transport',
+    'Other': 'Boshqa'
+  };
+
+  const productTypes = [...new Set(allProducts.map(product => product.type).filter(Boolean))]
+    .map(type => ({
+      en: type,
+      uz: typeMapping[type] || type
+    }));
 
   const filteredProducts = allProducts.filter(product => {
     const matchesSearch = searchTerm 
       ? product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (product.type?.toLowerCase() || '').includes(searchTerm.toLowerCase())
+        (typeMapping[product.type]?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
+        product.type.toLowerCase().includes(searchTerm.toLowerCase())
       : true;
-    const matchesType = !selectedType || product.type === selectedType;
+    const matchesType = !selectedType || 
+      product.type === selectedType.en || 
+      typeMapping[product.type] === selectedType.uz;
     return matchesSearch && matchesType;
   });
 
@@ -152,19 +174,74 @@ function App() {
                             >
                               Previous
                             </button>
-                            {[...Array(totalPages)].map((_, i) => (
-                              <button
-                                key={i + 1}
-                                onClick={() => handlePageChange(i + 1)}
-                                className={`px-4 py-2 text-sm font-medium rounded-md ${
-                                  currentPage === i + 1
-                                    ? 'bg-gray-900 text-white'
-                                    : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'
-                                }`}
-                              >
-                                {i + 1}
-                              </button>
-                            ))}
+                            
+                            {(() => {
+                              let pages = [];
+                              const maxVisible = 3;
+                              let start = Math.max(1, currentPage - 1);
+                              let end = Math.min(start + maxVisible - 1, totalPages);
+                              
+                              // Adjust start if we're at the end
+                              if (end === totalPages) {
+                                start = Math.max(1, end - maxVisible + 1);
+                              }
+
+                              // Add first page button if not in range
+                              if (start > 1) {
+                                pages.push(
+                                  <button
+                                    key="first"
+                                    onClick={() => handlePageChange(1)}
+                                    className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+                                  >
+                                    1
+                                  </button>
+                                );
+                                if (start > 2) {
+                                  pages.push(
+                                    <span key="dots1" className="px-2 py-2 text-gray-500">...</span>
+                                  );
+                                }
+                              }
+
+                              // Add page buttons
+                              for (let i = start; i <= end; i++) {
+                                pages.push(
+                                  <button
+                                    key={i}
+                                    onClick={() => handlePageChange(i)}
+                                    className={`px-4 py-2 text-sm font-medium rounded-md ${
+                                      currentPage === i
+                                        ? 'bg-gray-900 text-white'
+                                        : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'
+                                    }`}
+                                  >
+                                    {i}
+                                  </button>
+                                );
+                              }
+
+                              // Add last page button if not in range
+                              if (end < totalPages) {
+                                if (end < totalPages - 1) {
+                                  pages.push(
+                                    <span key="dots2" className="px-2 py-2 text-gray-500">...</span>
+                                  );
+                                }
+                                pages.push(
+                                  <button
+                                    key="last"
+                                    onClick={() => handlePageChange(totalPages)}
+                                    className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+                                  >
+                                    {totalPages}
+                                  </button>
+                                );
+                              }
+
+                              return pages;
+                            })()}
+
                             <button
                               onClick={() => handlePageChange(currentPage + 1)}
                               disabled={currentPage === totalPages}
@@ -180,6 +257,7 @@ function App() {
                 </div>
               } />
               <Route path="/product/:id" element={<ProductDetails />} />
+              <Route path="/bulk-upload" element={<BulkProductUpload />} />
             </Routes>
           </div>
         </AlertProvider>
