@@ -91,15 +91,19 @@ function App() {
       uz: typeMapping[type] || type
     }));
 
-  const filteredProducts = allProducts.filter(product => {
+  const filteredProducts = (allProducts || []).filter(product => {
     const matchesSearch = searchTerm 
       ? product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         (typeMapping[product.type]?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
         product.type.toLowerCase().includes(searchTerm.toLowerCase())
       : true;
-    const matchesType = !selectedType || 
-      product.type === selectedType.en || 
-      typeMapping[product.type] === selectedType.uz;
+
+    const matchesType = !selectedType || (
+      selectedType.en 
+        ? product.type === selectedType.en
+        : product.type === selectedType
+    );
+
     return matchesSearch && matchesType;
   });
 
