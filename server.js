@@ -12,8 +12,14 @@ const app = express();
 // Enable compression
 app.use(compression());
 
-// Configure prerender-node
-app.use(prerender.set('prerenderToken', 'wCd7mtJB2q50Hdag6L75'));
+// Configure prerender-node with additional options
+const prerenderMiddleware = prerender.set('prerenderToken', 'wCd7mtJB2q50Hdag6L75')
+  .set('protocol', 'https')
+  .set('host', 'qancha-uz.vercel.app')
+  .set('forwardHeaders', true)
+  .blacklisted(['^/admin']); // Exclude admin routes from prerendering
+
+app.use(prerenderMiddleware);
 
 // Serve static files from the dist directory
 app.use(express.static(path.join(__dirname, 'dist')));

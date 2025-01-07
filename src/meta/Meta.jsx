@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 const Meta = ({ productDetail }) => {
@@ -13,16 +13,7 @@ const Meta = ({ productDetail }) => {
     keywords: "marketplace, uzbekistan, online shopping, buy, sell, products, qancha, tashkent"
   };
 
-  // Use state to check if data is loaded before rendering meta tags
-  const [isDataLoaded, setIsDataLoaded] = useState(false);
-
-  useEffect(() => {
-    if (productDetail) {
-      setIsDataLoaded(true);
-    }
-  }, [productDetail]);
-
-  const metaContent = isDataLoaded ? {
+  const metaContent = productDetail ? {
     url: `${baseUrl}/product/${productDetail.id}`,
     title: `${productDetail.name} - Qancha.uz`,
     description: `${productDetail.name} - Narxi: ${productDetail.lowestPrice?.toLocaleString()} - ${productDetail.highestPrice?.toLocaleString()} so'm`,
@@ -31,59 +22,29 @@ const Meta = ({ productDetail }) => {
   } : defaultMeta;
 
   return (
-    <Helmet>
+    <Helmet prioritizeSeoTags={true}>
       <title>{metaContent.title}</title>
-      <meta name="title" content={metaContent.title} />
       <meta name="description" content={metaContent.description} />
       <meta name="keywords" content={metaContent.keywords} />
       
-      <link rel="canonical" href={metaContent.url} />
-      
-      {/* Open Graph / Facebook */}
-      <meta property="og:type" content={'website'} />
-      <meta property="og:url" content={metaContent.url} />
+      {/* OpenGraph Meta Tags */}
       <meta property="og:title" content={metaContent.title} />
       <meta property="og:description" content={metaContent.description} />
       <meta property="og:image" content={metaContent.image} />
+      <meta property="og:url" content={metaContent.url} />
+      <meta property="og:type" content="website" />
       <meta property="og:site_name" content="Qancha.uz" />
-      <meta property="og:locale" content="uz_UZ" />
-
-      {/* Twitter */}
+      
+      {/* Twitter Card Meta Tags */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:url" content={metaContent.url} />
       <meta name="twitter:title" content={metaContent.title} />
       <meta name="twitter:description" content={metaContent.description} />
       <meta name="twitter:image" content={metaContent.image} />
       
       {/* Additional Meta Tags */}
+      <link rel="canonical" href={metaContent.url} />
       <meta name="robots" content="index, follow" />
-      <meta name="author" content="Qancha.uz" />
-      <meta name="language" content="Uzbek" />
-      <meta name="geo.region" content="UZ" />
-      <meta name="geo.placename" content="Tashkent" />
-
-      {/* Structured Data for Google */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Product",
-          "name": metaContent.title,
-          "description": metaContent.description,
-          "image": metaContent.image,
-          "url": metaContent.url,
-          "offers": {
-            "@type": "AggregateOffer",
-            "lowPrice": productDetail?.lowestPrice,
-            "highPrice": productDetail?.highestPrice,
-            "priceCurrency": "UZS",
-            "availability": productDetail?.isSellerAvailable ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
-          },
-          "brand": {
-            "@type": "Brand",
-            "name": "Qancha.uz"
-          }
-        })}
-      </script>
+      <meta httpEquiv="content-language" content="uz" />
     </Helmet>
   );
 };

@@ -15,14 +15,15 @@ fs.readFile(filePath, 'utf8', (err, data) => {
     return;
   }
 
-  // Use a regular expression to remove unwanted meta tags
-  const cleanedData = data.replace(/<meta .*?(unwanted-keyword|another-keyword).*?>/g, '');
+  // Only remove specific meta tags that might conflict
+  const cleanedData = data.replace(/<meta\s+name="description"[^>]*>/g, '')
+                         .replace(/<meta\s+name="keywords"[^>]*>/g, '');
 
   fs.writeFile(filePath, cleanedData, 'utf8', (err) => {
     if (err) {
-      console.error('Error writing index.html:', err);
-    } else {
-      console.log('Unwanted meta tags removed successfully!');
+      console.error('Error writing to index.html:', err);
+      return;
     }
+    console.log('Unwanted meta tags removed successfully!');
   });
 });
