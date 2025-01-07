@@ -155,14 +155,15 @@ const AdminProductForm = ({ onClose }) => {
       // Add product to Firestore
       const productData = {
         name: formData.name,
-        lowestPrice: parseFloat(formData.lowestPrice.replace(/,/g, '')),
-        highestPrice: parseFloat(formData.highestPrice.replace(/,/g, '')),
-        type: formData.type || 'Other',
-        image: imageUrl,
+        lowestPrice: parseFloat(formData.lowestPrice),
+        highestPrice: parseFloat(formData.highestPrice),
+        type: formData.type,
+        imageUrl: imageUrl,
         isSellerAvailable: formData.isSellerAvailable,
         phoneNumber: formData.isSellerAvailable ? formData.phoneNumber : '',
         createdAt: new Date().toISOString(),
-        views: 0
+        views: 0,
+        forwards: 0
       };
 
       const docRef = await addDoc(collection(db, 'products'), productData);

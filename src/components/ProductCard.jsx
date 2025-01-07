@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { deleteDoc, doc } from 'firebase/firestore';
+import { deleteDoc, doc, updateDoc, increment } from 'firebase/firestore';
 import { db } from '../firebase';
 import DeleteConfirmationModal from './DeleteConfirmationModal';
 import { useNavigate } from 'react-router-dom';
@@ -142,7 +142,11 @@ const ProductCard = ({ product, onEdit, loading }) => {
             <h3 className="text-lg font-semibold text-gray-900 flex-grow truncate">
               {product.name}
             </h3>
-
+            {isAdmin && (
+              <div className="text-sm text-gray-500">
+                {product.forwards || 0} ulashilgan
+              </div>
+            )}
           </div>
           <div className="flex items-center justify-between text-sm text-gray-500">
             <span>{product.type}</span>
@@ -156,7 +160,7 @@ const ProductCard = ({ product, onEdit, loading }) => {
           <div className="flex items-center gap-2 pt-3 border-t border-gray-100">
             <button
               className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 transition-colors"
-              onClick={() => {
+              onClick={async () => {
                 const productUrl = `${window.location.origin}/product/${product.id}`;
                 window.open(
                   `https://t.me/share/url?` + 
@@ -165,6 +169,17 @@ const ProductCard = ({ product, onEdit, loading }) => {
                   `&image=${encodeURIComponent(product.image)}`,
                   '_blank'
                 );
+                // Increment forwards count
+                if (product.id) {
+                  try {
+                    const productRef = doc(db, 'products', product.id);
+                    await updateDoc(productRef, {
+                      forwards: increment(1)
+                    });
+                  } catch (error) {
+                    console.error('Error updating forwards count:', error);
+                  }
+                }
               }}
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
