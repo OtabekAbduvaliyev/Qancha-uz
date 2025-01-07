@@ -3,6 +3,7 @@ import ReactDOMServer from 'react-dom/server';
 import { PageShell } from './PageShell';
 import { escapeInject, dangerouslySkipEscape } from 'vite-plugin-ssr/server';
 import { HelmetProvider } from 'react-helmet-async';
+import { StaticRouter } from 'react-router-dom/server';
 
 export { render };
 export { passToClient };
@@ -15,9 +16,11 @@ async function render(pageContext) {
 
   const pageHtml = ReactDOMServer.renderToString(
     <HelmetProvider context={helmetContext}>
-      <PageShell pageContext={pageContext}>
-        <Page {...pageProps} />
-      </PageShell>
+      <StaticRouter location={pageContext.urlPathname}>
+        <PageShell pageContext={pageContext}>
+          <Page {...pageProps} />
+        </PageShell>
+      </StaticRouter>
     </HelmetProvider>
   );
 
@@ -29,6 +32,7 @@ async function render(pageContext) {
         ${dangerouslySkipEscape(helmet.title.toString())}
         ${dangerouslySkipEscape(helmet.meta.toString())}
         ${dangerouslySkipEscape(helmet.link.toString())}
+        ${dangerouslySkipEscape(helmet.script.toString())}
       </head>
       <body ${dangerouslySkipEscape(helmet.bodyAttributes.toString())}>
         <div id="root">${dangerouslySkipEscape(pageHtml)}</div>

@@ -10,22 +10,27 @@ export async function render(pageContext) {
   
   if (!root.innerHTML) {
     // First render
-    ReactDOM.createRoot(root).render(
-      <HelmetProvider>
-        <PageShell pageContext={pageContext}>
-          <Page {...pageProps} />
-        </PageShell>
-      </HelmetProvider>
+    const rootElement = ReactDOM.createRoot(root);
+    rootElement.render(
+      <React.StrictMode>
+        <HelmetProvider>
+          <PageShell pageContext={pageContext}>
+            <Page {...pageProps} />
+          </PageShell>
+        </HelmetProvider>
+      </React.StrictMode>
     );
   } else {
     // Hydration
     ReactDOM.hydrateRoot(
       root,
-      <HelmetProvider>
-        <PageShell pageContext={pageContext}>
-          <Page {...pageProps} />
-        </PageShell>
-      </HelmetProvider>
+      <React.StrictMode>
+        <HelmetProvider>
+          <PageShell pageContext={pageContext}>
+            <Page {...pageProps} />
+          </PageShell>
+        </HelmetProvider>
+      </React.StrictMode>
     );
   }
 }
