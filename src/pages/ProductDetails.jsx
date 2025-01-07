@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc, increment } from 'firebase/firestore';
 import { Helmet } from 'react-helmet';
 import { db } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
@@ -11,6 +11,7 @@ const ProductDetails = () => {
   const { user } = useAuth();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const viewIncremented = useRef(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -19,6 +20,13 @@ const ProductDetails = () => {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           setProduct({ id: docSnap.id, ...docSnap.data() });
+          // Only increment view if not already done
+          if (!viewIncremented.current) {
+            await updateDoc(docRef, {
+              views: increment(1)
+            });
+            viewIncremented.current = true;
+          }
         } else {
           navigate('/');
         }
@@ -154,6 +162,9 @@ const ProductDetails = () => {
                             day: 'numeric'
                           })} da qo'shilgan
                         </p>
+                        <div className="text-sm text-gray-500 mb-4">
+                          <span>{product.views || 0} marta ko'rildi</span>
+                        </div>
                       </div>
                     </div>
                   </div>

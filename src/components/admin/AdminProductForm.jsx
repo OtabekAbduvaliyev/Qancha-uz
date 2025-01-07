@@ -19,7 +19,8 @@ const AdminProductForm = ({ onClose }) => {
     imageUrl: '',
     imageMethod: 'url', // Default to URL method
     isSellerAvailable: false,
-    phoneNumber: ''
+    phoneNumber: '',
+    views: 0
   });
 
   const productTypes = {
@@ -152,7 +153,7 @@ const AdminProductForm = ({ onClose }) => {
       }
 
       // Add product to Firestore
-      const docRef = await addDoc(collection(db, 'products'), {
+      const productData = {
         name: formData.name,
         lowestPrice: parseFloat(formData.lowestPrice.replace(/,/g, '')),
         highestPrice: parseFloat(formData.highestPrice.replace(/,/g, '')),
@@ -160,8 +161,11 @@ const AdminProductForm = ({ onClose }) => {
         image: imageUrl,
         isSellerAvailable: formData.isSellerAvailable,
         phoneNumber: formData.isSellerAvailable ? formData.phoneNumber : '',
-        createdAt: new Date().toISOString()
-      });
+        createdAt: new Date().toISOString(),
+        views: 0
+      };
+
+      const docRef = await addDoc(collection(db, 'products'), productData);
 
       showAlert(`"${formData.name}" mahsuloti qo'shildi`, 'success');
       onClose();
