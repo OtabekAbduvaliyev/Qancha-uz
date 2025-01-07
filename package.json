@@ -4,13 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node server",
-    "build": "vite build",
-    "vercel-build": "vite build && vite build --ssr api/index.js && npm run postbuild",
+    "dev": "vite",
+    "build": "vite build && vite build --ssr api/render.js && npm run postbuild",
     "postbuild": "node clean-meta-tags.js",
     "lint": "eslint .",
-    "preview": "cross-env NODE_ENV=production node server",
-    "start": "cross-env NODE_ENV=production node server"
+    "preview": "vite preview",
+    "start": "node server"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.47.10",
