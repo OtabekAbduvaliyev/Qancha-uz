@@ -1,17 +1,23 @@
 {
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/server/index.js"
-    }
-  ],
+  "version": 2,
   "builds": [
     {
-      "src": "server/index.js",
+      "src": "package.json",
+      "use": "@vercel/static-build"
+    },
+    {
+      "src": "api/index.js",
       "use": "@vercel/node"
     }
   ],
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "framework": "vite"
+  "routes": [
+    {
+      "src": "/assets/(.*)",
+      "dest": "/dist/client/assets/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.js"
+    }
+  ]
 }
