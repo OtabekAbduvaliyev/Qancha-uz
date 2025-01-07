@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "node server",
-    "build": "vite build",
-    "postbuild": "vite build --ssr server/index.js && node clean-meta-tags.js",
+    "build": "vite build && vite build --ssr server/index.js && npm run build:server",
+    "build:server": "vite build --ssr server/index.js --outDir dist/server",
+    "postbuild": "node clean-meta-tags.js",
     "lint": "eslint .",
     "preview": "cross-env NODE_ENV=production node server",
     "start": "cross-env NODE_ENV=production node server"

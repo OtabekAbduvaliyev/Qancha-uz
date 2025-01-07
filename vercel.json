@@ -2,7 +2,13 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/index.html"
+      "destination": "/server/index.js"
+    }
+  ],
+  "builds": [
+    {
+      "src": "server/index.js",
+      "use": "@vercel/node"
     }
   ],
   "buildCommand": "npm run build",
