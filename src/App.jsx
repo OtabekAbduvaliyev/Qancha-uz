@@ -143,7 +143,7 @@ function App() {
         <AlertProvider>
           <Helmet>
             <title>Qancha.uz - Uzbekistan's Premier Marketplace</title>
-            <meta name="description" content="Qancha.uz - Your trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you." key="description" />
+            <meta name="description" content="Qancha.uz - Yo trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you." key="description" />
             <meta name="keywords" content="marketplace, uzbekistan, online shopping, buy, sell, products, qancha" key="keywords" />
             <meta name="author" content="Qancha.uz" key="author" />
             <meta name="robots" content="index, follow" key="robots" />
