@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 
 const Meta = ({ productDetail }) => {
-  const defaultImage = "https://res.cloudinary.com/dzqxgr4lr/image/upload/v1704545777/sarhad-travel-logo_xgvx7i.jpg";
+  const defaultImage = "https://xzmtjxrgjcorslyfxxvm.supabase.co/storage/v1/object/public/qancha-products/favicon-16x16.png";
   const baseUrl = "https://qancha-uz.vercel.app";
   
   const defaultMeta = {
