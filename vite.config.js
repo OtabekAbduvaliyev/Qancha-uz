@@ -1,26 +1,15 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import ssr from 'vite-plugin-ssr/plugin';
-import path from 'path';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), ssr()],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src')
-    }
-  },
-  ssr: {
-    noExternal: ['react-helmet-async']
+  plugins: [react()],
+  server: {
+    port: 3000
   },
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
-    rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, 'index.html')
-      }
-    }
+    sourcemap: true,
   }
-});
+})
