@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { doc, getDoc, updateDoc, increment } from 'firebase/firestore';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { db } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
 
