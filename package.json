@@ -3,12 +3,13 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
+"scripts": {
+  "dev": "vite",
+  "build": "vite build",
+  "postbuild": "node clean-meta-tags.js",
+  "lint": "eslint .",
+  "preview": "vite preview"
+},
   "dependencies": {
     "@supabase/supabase-js": "^2.47.10",
     "compression": "^1.7.5",

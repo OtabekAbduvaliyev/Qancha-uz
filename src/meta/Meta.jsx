@@ -6,16 +6,19 @@ const Meta = ({ productDetail }) => {
   
   const defaultMeta = {
     title: "Qancha.uz - Kerak narxni shu yerdan toping!",
-    description: "Qancha.uz - O'zbekistondagi keraklaringizni qandaydir buyurtma qilishni o'rganib oling",
+    description: "Your trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you.",
     image: defaultImage,
-    url: baseUrl
+    url: baseUrl,
+    keywords: "marketplace, uzbekistan, online shopping, buy, sell, products, qancha, tashkent"
   };
 
   if (!productDetail) {
     return (
       <Helmet>
         <title>{defaultMeta.title}</title>
+        <meta name="title" content={defaultMeta.title} />
         <meta name="description" content={defaultMeta.description} />
+        <meta name="keywords" content={defaultMeta.keywords} />
         
         <link rel="canonical" href={defaultMeta.url} />
         
@@ -26,6 +29,7 @@ const Meta = ({ productDetail }) => {
         <meta property="og:description" content={defaultMeta.description} />
         <meta property="og:image" content={defaultMeta.image} />
         <meta property="og:site_name" content="Qancha.uz" />
+        <meta property="og:locale" content="uz_UZ" />
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
@@ -35,11 +39,38 @@ const Meta = ({ productDetail }) => {
         <meta name="twitter:image" content={defaultMeta.image} />
         
         {/* Additional Meta Tags */}
-        <meta name="keywords" content="narxlar, buyurtma, kerak, qancha," />
-        <meta name="robots" content="index, follow" />
+        <meta name="robots" content="index, follow, max-image-preview:large" />
+        <meta name="language" content="Uzbek" />
         <meta name="author" content="Qancha.uz" />
         <meta name="geo.region" content="UZ" />
-        <meta name="geo.placename" content="Jizzakh" />
+        <meta name="geo.placename" content="Tashkent" />
+        
+        {/* Alternate Languages */}
+        <link rel="alternate" hrefLang="uz" href={defaultMeta.url} />
+        <link rel="alternate" hrefLang="ru" href={`${defaultMeta.url}/ru`} />
+        <link rel="alternate" hrefLang="x-default" href={defaultMeta.url} />
+
+        {/* JSON-LD Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Qancha.uz",
+            "url": defaultMeta.url,
+            "logo": defaultMeta.image,
+            "description": defaultMeta.description,
+            "address": {
+              "@type": "PostalAddress",
+              "addressCountry": "UZ",
+              "addressLocality": "Tashkent"
+            },
+            "sameAs": [
+              "https://facebook.com/qancha.uz",
+              "https://instagram.com/qancha.uz",
+              "https://t.me/qancha_uz"
+            ]
+          })}
+        </script>
       </Helmet>
     );
   }
@@ -55,6 +86,7 @@ const Meta = ({ productDetail }) => {
   return (
     <Helmet>
       <title>{productMeta.title}</title>
+      <meta name="title" content={productMeta.title} />
       <meta name="description" content={productMeta.description} />
       <meta name="keywords" content={productMeta.keywords} />
       
@@ -67,6 +99,7 @@ const Meta = ({ productDetail }) => {
       <meta property="og:description" content={productMeta.description} />
       <meta property="og:image" content={productMeta.image} />
       <meta property="og:site_name" content="Qancha.uz" />
+      <meta property="og:locale" content="uz_UZ" />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
@@ -78,8 +111,9 @@ const Meta = ({ productDetail }) => {
       {/* Additional Meta Tags */}
       <meta name="robots" content="index, follow" />
       <meta name="author" content="Qancha.uz" />
+      <meta name="language" content="Uzbek" />
       <meta name="geo.region" content="UZ" />
-      <meta name="geo.placename" content="Jizzakh" />
+      <meta name="geo.placename" content="Tashkent" />
 
       {/* Structured Data for Google */}
       <script type="application/ld+json">
