@@ -26,15 +26,24 @@ async function render(pageContext) {
 
   const { helmet } = helmetContext;
 
+  // Get styles
+  const style = `
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+      body { margin: 0; font-family: 'Inter', sans-serif; }
+    </style>
+  `;
+
   const documentHtml = escapeInject`<!DOCTYPE html>
-    <html ${dangerouslySkipEscape(helmet.htmlAttributes.toString())}>
+    <html ${dangerouslySkipEscape(helmet?.htmlAttributes.toString() || '')}>
       <head>
-        ${dangerouslySkipEscape(helmet.title.toString())}
-        ${dangerouslySkipEscape(helmet.meta.toString())}
-        ${dangerouslySkipEscape(helmet.link.toString())}
-        ${dangerouslySkipEscape(helmet.script.toString())}
+        ${dangerouslySkipEscape(helmet?.title.toString() || '')}
+        ${dangerouslySkipEscape(helmet?.meta.toString() || '')}
+        ${dangerouslySkipEscape(helmet?.link.toString() || '')}
+        ${dangerouslySkipEscape(style)}
+        ${dangerouslySkipEscape(helmet?.script.toString() || '')}
       </head>
-      <body ${dangerouslySkipEscape(helmet.bodyAttributes.toString())}>
+      <body ${dangerouslySkipEscape(helmet?.bodyAttributes.toString() || '')}>
         <div id="root">${dangerouslySkipEscape(pageHtml)}</div>
       </body>
     </html>`;

@@ -5,9 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && vite build --ssr api/render.js && npm run postbuild",
-    "postbuild": "node clean-meta-tags.js",
-    "lint": "eslint .",
+    "build": "vite build && vite build --ssr middleware.js",
     "preview": "vite preview",
     "start": "node server"
   },
@@ -16,6 +14,7 @@
     "compression": "^1.7.5",
     "express": "^4.21.2",
     "firebase": "^11.1.0",
+    "next": "^15.1.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.1.1",

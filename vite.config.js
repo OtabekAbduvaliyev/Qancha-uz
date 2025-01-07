@@ -6,14 +6,21 @@ import path from 'path';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), ssr()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src')
+    }
+  },
   ssr: {
     noExternal: ['react-helmet-async']
   },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-      'pages': path.resolve(__dirname, './pages'),
-      'renderer': path.resolve(__dirname, './renderer')
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html')
+      }
     }
   }
 });

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
 import App from '../src/App';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter } from 'react-router-dom';
@@ -14,13 +13,6 @@ function Page() {
       <AuthProvider>
         <AlertProvider>
           <BrowserRouter>
-            <Helmet>
-              <title>Qancha.uz - Home</title>
-              <meta name="description" content="Welcome to Qancha.uz - Your trusted marketplace" />
-              <meta property="og:title" content="Qancha.uz - Home" />
-              <meta property="og:description" content="Welcome to Qancha.uz - Your trusted marketplace" />
-            </Helmet>
-            <h1>Welcome to Qancha.uz</h1>
             <App />
           </BrowserRouter>
         </AlertProvider>
