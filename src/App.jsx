@@ -141,36 +141,63 @@ function App() {
       <AuthProvider>
         <AlertProvider>
           <Helmet>
+            {/* Primary Meta Tags */}
             <title>Qancha.uz - Kerak narxni shu yerdan toping!</title>
             <meta name="description" content="Your trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you." />
-            <meta name="keywords" content="marketplace, uzbekistan, online shopping, buy, sell, products, qancha" />
+            <meta name="keywords" content="marketplace, uzbekistan, online shopping, buy, sell, products, qancha, tashkent" />
+            
+            {/* Canonical URL */}
+            <link rel="canonical" href={window.location.origin + window.location.pathname} />
             
             {/* Open Graph / Facebook */}
             <meta property="og:type" content="website" />
-            <meta property="og:url" content={window.location.origin} />
+            <meta property="og:url" content={window.location.origin + window.location.pathname} />
             <meta property="og:title" content="Qancha.uz - Kerak narxni shu yerdan toping!" />
             <meta property="og:description" content="Your trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you." />
+            <meta property="og:image" content={`${window.location.origin}/og-image.jpg`} />
             <meta property="og:site_name" content="Qancha.uz" />
             <meta property="og:locale" content="uz_UZ" />
             
             {/* Twitter */}
             <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:url" content={window.location.origin} />
+            <meta name="twitter:url" content={window.location.origin + window.location.pathname} />
             <meta name="twitter:title" content="Qancha.uz - Kerak narxni shu yerdan toping!" />
             <meta name="twitter:description" content="Your trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you." />
+            <meta name="twitter:image" content={`${window.location.origin}/og-image.jpg`} />
             
             {/* Additional Meta Tags */}
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-            <meta name="robots" content="index, follow" />
+            <meta name="robots" content="index, follow, max-image-preview:large" />
             <meta name="language" content="Uzbek" />
             <meta name="author" content="Qancha.uz" />
+            <meta name="geo.region" content="UZ" />
+            <meta name="geo.placename" content="Tashkent" />
             
-            {/* Favicon */}
-            <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-            <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-            <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-            <link rel="manifest" href="/site.webmanifest" />
+            {/* Alternate Languages */}
+            <link rel="alternate" hrefLang="uz" href={window.location.origin} />
+            <link rel="alternate" hrefLang="ru" href={`${window.location.origin}/ru`} />
+            <link rel="alternate" hrefLang="x-default" href={window.location.origin} />
+
+            {/* JSON-LD Structured Data */}
+            <script type="application/ld+json">
+              {JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Qancha.uz",
+                "url": window.location.origin,
+                "logo": `${window.location.origin}/logo.png`,
+                "description": "Your trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you.",
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressCountry": "UZ",
+                  "addressLocality": "Tashkent"
+                },
+                "sameAs": [
+                  "https://facebook.com/qancha.uz",
+                  "https://instagram.com/qancha.uz",
+                  "https://t.me/qancha_uz"
+                ]
+              })}
+            </script>
           </Helmet>
 
           <div className="min-h-screen bg-gray-50">
