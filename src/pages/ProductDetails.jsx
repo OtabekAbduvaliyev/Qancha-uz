@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { doc, getDoc, updateDoc, increment } from 'firebase/firestore';
-import { Helmet } from 'react-helmet-async';
 import { db } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
+import Meta from '../meta/Meta';
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -52,50 +52,7 @@ const ProductDetails = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{product.name} - Qancha.uz</title>
-        <meta name="description" content={`${product.name} - Narxi: ${product.lowestPrice.toLocaleString()} - ${product.highestPrice.toLocaleString()} so'm`} key="description" />
-        <meta name="keywords" content={`${product.name}, ${product.type}, qancha.uz, narx, price`} key="keywords" />
-        
-        {/* Open Graph / Facebook */}
-        <meta property="og:type" content="product" key="og:type" />
-        <meta property="og:url" content={`${window.location.origin}/product/${product.id}`} key="og:url" />
-        <meta property="og:title" content={`${product.name} - Qancha.uz`} key="og:title" />
-        <meta property="og:description" content={`Narxi: ${product.lowestPrice.toLocaleString()} - ${product.highestPrice.toLocaleString()} so'm`} key="og:description" />
-        <meta property="og:image" content={product.image} key="og:image" />
-        <meta property="og:site_name" content="Qancha.uz" key="og:site_name" />
-        
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" key="twitter:card" />
-        <meta name="twitter:url" content={`${window.location.origin}/product/${product.id}`} key="twitter:url" />
-        <meta name="twitter:title" content={`${product.name} - Qancha.uz`} key="twitter:title" />
-        <meta name="twitter:description" content={`Narxi: ${product.lowestPrice.toLocaleString()} - ${product.highestPrice.toLocaleString()} so'm`} key="twitter:description" />
-        <meta name="twitter:image" content={product.imageUrl} key="twitter:image" />
-        
-        {/* Structured Data for Google */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Product",
-            "name": product.name,
-            "description": `${product.name} - Narxi: ${product.lowestPrice.toLocaleString()} - ${product.highestPrice.toLocaleString()} so'm`,
-            "image": product.image,
-            "url": `${window.location.origin}/product/${product.id}`,
-            "offers": {
-              "@type": "AggregateOffer",
-              "lowPrice": product.lowestPrice,
-              "highPrice": product.highestPrice,
-              "priceCurrency": "UZS",
-              "availability": product.isSellerAvailable ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
-            },
-            "brand": {
-              "@type": "Brand",
-              "name": "Qancha.uz"
-            }
-          })}
-        </script>
-      </Helmet>
-
+      <Meta productDetail={product} />
       <div className="min-h-screen bg-gray-50 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
