@@ -3,22 +3,23 @@ import react from '@vitejs/plugin-react'
 import { resolve } from 'path'
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ command, mode, ssrBuild }) => ({
   plugins: [react()],
   base: '/',
   build: {
-    outDir: 'dist',
+    outDir: ssrBuild ? 'dist/server' : 'dist/client',
     assetsDir: 'assets',
-    rollupOptions: {
+    rollupOptions: !ssrBuild ? {
       input: {
         main: resolve(__dirname, 'index.html')
-      },
-      output: {
-        manualChunks: {
-          'vendor': ['react', 'react-dom', 'react-router-dom'],
-        }
       }
-    }
+    } : undefined
+  },
+  ssr: {
+    // SSR-specific config
+    format: 'esm',
+    target: 'node',
+    noExternal: ['react-helmet-async']
   },
   resolve: {
     alias: {
@@ -26,6 +27,9 @@ export default defineConfig({
     }
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom']
+    include: ['react', 'react-dom', 'react-router-dom', 'react-helmet-async']
+  },
+  server: {
+    middlewareMode: true
   }
-})
+}))

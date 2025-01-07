@@ -52,7 +52,7 @@ const ProductDetails = () => {
 
   return (
     <>
-      <Helmet prioritizeSeoTags={true}>
+      <Helmet>
         <title>{product.name} - Qancha.uz</title>
         <meta name="description" content={`${product.name} - Narxi: ${product.lowestPrice.toLocaleString()} - ${product.highestPrice.toLocaleString()} so'm`} key="description" />
         <meta name="keywords" content={`${product.name}, ${product.type}, qancha.uz, narx, price`} key="keywords" />

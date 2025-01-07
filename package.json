@@ -5,19 +5,26 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "vite build --outDir dist/client",
+    "build:server": "vite build --outDir dist/server --ssr src/entry-server.jsx",
+    "serve": "set NODE_ENV=production && node server",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.47.10",
+    "compression": "^1.7.5",
+    "express": "^4.21.2",
     "firebase": "^11.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.1.1",
     "react-helmet": "^6.1.0",
     "react-helmet-async": "^2.0.5",
-    "react-router-dom": "^6.21.1"
+    "react-router-dom": "^6.21.1",
+    "serve-static": "^1.16.2",
+    "vite-plugin-ssr": "^0.4.142"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
