@@ -11,6 +11,7 @@ import { db } from './firebase'
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore'
 import { SEO } from './components/SEO';
 import BulkProductUpload from './components/BulkProductUpload';
+import { Helmet } from 'react-helmet-async';
 
 const ITEMS_PER_PAGE = 12;
 
@@ -140,6 +141,29 @@ function App() {
     <Router>
       <AuthProvider>
         <AlertProvider>
+          <Helmet>
+            <title>Qancha.uz - Uzbekistan's Premier Marketplace</title>
+            <meta name="description" content="Qancha.uz - Your trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you." />
+            <meta name="keywords" content="marketplace, uzbekistan, online shopping, buy, sell, products, qancha" />
+            <meta name="author" content="Qancha.uz" />
+            <meta name="robots" content="index, follow" />
+            
+            {/* Open Graph / Facebook */}
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content="https://qancha-uz.vercel.app/" />
+            <meta property="og:title" content="Qancha.uz - Uzbekistan's Premier Marketplace" />
+            <meta property="og:description" content="Your trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you." />
+            <meta property="og:image" content="https://qancha-uz.vercel.app/src/assets/main.png" />
+            <meta property="og:image:alt" content="Qancha.uz marketplace logo" />
+            
+            {/* Twitter */}
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:url" content="https://qancha-uz.vercel.app/" />
+            <meta name="twitter:title" content="Qancha.uz - Uzbekistan's Premier Marketplace" />
+            <meta name="twitter:description" content="Your trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you." />
+            <meta name="twitter:image" content="https://qancha-uz.vercel.app/src/assets/main.png" />
+            <meta name="twitter:image:alt" content="Qancha.uz marketplace logo" />
+          </Helmet>
           <div className="min-h-screen bg-gray-50">
             <Navbar />
             <SEO />

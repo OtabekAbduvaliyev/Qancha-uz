@@ -52,28 +52,25 @@ const ProductDetails = () => {
 
   return (
     <>
-      <Helmet>
+      <Helmet prioritizeSeoTags={true}>
         <title>{product.name} - Qancha.uz</title>
         <meta name="description" content={`${product.name} - Narxi: ${product.lowestPrice.toLocaleString()} - ${product.highestPrice.toLocaleString()} so'm`} />
+        <meta name="keywords" content={`${product.name}, ${product.type}, qancha.uz, narx, price`} />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="product" />
+        <meta property="og:url" content={`${window.location.origin}/product/${product.id}`} />
         <meta property="og:title" content={`${product.name} - Qancha.uz`} />
         <meta property="og:description" content={`Narxi: ${product.lowestPrice.toLocaleString()} - ${product.highestPrice.toLocaleString()} so'm`} />
-        <meta property="og:image" content={product.image} />
-        <meta property="og:url" content={`${window.location.origin}/product/${product.id}`} />
+        <meta property="og:image" content={product.imageUrl} />
         <meta property="og:site_name" content="Qancha.uz" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={`${window.location.origin}/product/${product.id}`} />
         <meta name="twitter:title" content={`${product.name} - Qancha.uz`} />
         <meta name="twitter:description" content={`Narxi: ${product.lowestPrice.toLocaleString()} - ${product.highestPrice.toLocaleString()} so'm`} />
-        <meta name="twitter:image" content={product.image} />
-        
-        {/* Additional Meta Tags */}
-        <meta name="keywords" content={`${product.name}, ${product.type}, qancha.uz, narx, price`} />
-        <meta name="author" content="Qancha.uz" />
-        <meta name="robots" content="index, follow" />
+        <meta name="twitter:image" content={product.imageUrl} />
         
         {/* Structured Data for Google */}
         <script type="application/ld+json">
@@ -82,7 +79,8 @@ const ProductDetails = () => {
             "@type": "Product",
             "name": product.name,
             "description": `${product.name} - Narxi: ${product.lowestPrice.toLocaleString()} - ${product.highestPrice.toLocaleString()} so'm`,
-            "image": product.image,
+            "image": product.imageUrl,
+            "url": `${window.location.origin}/product/${product.id}`,
             "offers": {
               "@type": "AggregateOffer",
               "lowPrice": product.lowestPrice,
