@@ -3,13 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-"scripts": {
-  "dev": "vite",
-  "build": "vite build",
-  "postbuild": "node clean-meta-tags.js",
-  "lint": "eslint .",
-  "preview": "vite preview"
-},
+  "scripts": {
+    "dev": "node server",
+    "build": "vite build",
+    "postbuild": "vite build --ssr server/index.js && node clean-meta-tags.js",
+    "lint": "eslint .",
+    "preview": "NODE_ENV=production node server",
+    "start": "NODE_ENV=production node server"
+  },
   "dependencies": {
     "@supabase/supabase-js": "^2.47.10",
     "compression": "^1.7.5",
@@ -22,6 +23,7 @@
     "react-helmet-async": "^2.0.5",
     "react-router-dom": "^6.21.1",
     "serve-static": "^1.16.2",
+    "sirv": "^3.0.0",
     "vite-plugin-ssr": "^0.4.142"
   },
   "devDependencies": {

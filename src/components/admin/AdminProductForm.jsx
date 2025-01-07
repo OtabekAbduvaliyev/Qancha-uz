@@ -158,7 +158,7 @@ const AdminProductForm = ({ onClose }) => {
         lowestPrice: parseFloat(formData.lowestPrice),
         highestPrice: parseFloat(formData.highestPrice),
         type: formData.type,
-        imageUrl: imageUrl,
+        image: imageUrl,
         isSellerAvailable: formData.isSellerAvailable,
         phoneNumber: formData.isSellerAvailable ? formData.phoneNumber : '',
         createdAt: new Date().toISOString(),
