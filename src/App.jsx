@@ -143,26 +143,27 @@ function App() {
         <AlertProvider>
           <Helmet>
             <title>Qancha.uz - Uzbekistan's Premier Marketplace</title>
-            <meta name="description" content="Qancha.uz - Your trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you." />
-            <meta name="keywords" content="marketplace, uzbekistan, online shopping, buy, sell, products, qancha" />
-            <meta name="author" content="Qancha.uz" />
-            <meta name="robots" content="index, follow" />
+            <meta name="description" content="Qancha.uz - Your trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you." key="description" />
+            <meta name="keywords" content="marketplace, uzbekistan, online shopping, buy, sell, products, qancha" key="keywords" />
+            <meta name="author" content="Qancha.uz" key="author" />
+            <meta name="robots" content="index, follow" key="robots" />
             
             {/* Open Graph / Facebook */}
-            <meta property="og:type" content="website" />
-            <meta property="og:url" content="https://qancha-uz.vercel.app/" />
-            <meta property="og:title" content="Qancha.uz - Uzbekistan's Premier Marketplace" />
-            <meta property="og:description" content="Your trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you." />
-            <meta property="og:image" content="https://qancha-uz.vercel.app/src/assets/main.png" />
-            <meta property="og:image:alt" content="Qancha.uz marketplace logo" />
+            <meta property="og:type" content="website" key="og:type" />
+            <meta property="og:url" content="https://qancha-uz.vercel.app/" key="og:url" />
+            <meta property="og:title" content="Qancha.uz - Uzbekistan's Premier Marketplace" key="og:title" />
+            <meta property="og:description" content="Your trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you." key="og:description" />
+            <meta property="og:image" content="https://qancha-uz.vercel.app/src/assets/main.png" key="og:image" />
+            <meta property="og:image:alt" content="Qancha.uz marketplace logo" key="og:image:alt" />
+            <meta property="og:site_name" content="Qancha.uz" key="og:site_name" />
             
             {/* Twitter */}
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:url" content="https://qancha-uz.vercel.app/" />
-            <meta name="twitter:title" content="Qancha.uz - Uzbekistan's Premier Marketplace" />
-            <meta name="twitter:description" content="Your trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you." />
-            <meta name="twitter:image" content="https://qancha-uz.vercel.app/src/assets/main.png" />
-            <meta name="twitter:image:alt" content="Qancha.uz marketplace logo" />
+            <meta name="twitter:card" content="summary_large_image" key="twitter:card" />
+            <meta name="twitter:url" content="https://qancha-uz.vercel.app/" key="twitter:url" />
+            <meta name="twitter:title" content="Qancha.uz - Uzbekistan's Premier Marketplace" key="twitter:title" />
+            <meta name="twitter:description" content="Your trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you." key="twitter:description" />
+            <meta name="twitter:image" content="https://qancha-uz.vercel.app/src/assets/main.png" key="twitter:image" />
+            <meta name="twitter:image:alt" content="Qancha.uz marketplace logo" key="twitter:image:alt" />
           </Helmet>
           <div className="min-h-screen bg-gray-50">
             <Navbar />

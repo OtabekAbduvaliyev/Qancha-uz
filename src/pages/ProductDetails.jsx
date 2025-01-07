@@ -54,23 +54,23 @@ const ProductDetails = () => {
     <>
       <Helmet prioritizeSeoTags={true}>
         <title>{product.name} - Qancha.uz</title>
-        <meta name="description" content={`${product.name} - Narxi: ${product.lowestPrice.toLocaleString()} - ${product.highestPrice.toLocaleString()} so'm`} />
-        <meta name="keywords" content={`${product.name}, ${product.type}, qancha.uz, narx, price`} />
+        <meta name="description" content={`${product.name} - Narxi: ${product.lowestPrice.toLocaleString()} - ${product.highestPrice.toLocaleString()} so'm`} key="description" />
+        <meta name="keywords" content={`${product.name}, ${product.type}, qancha.uz, narx, price`} key="keywords" />
         
         {/* Open Graph / Facebook */}
-        <meta property="og:type" content="product" />
-        <meta property="og:url" content={`${window.location.origin}/product/${product.id}`} />
-        <meta property="og:title" content={`${product.name} - Qancha.uz`} />
-        <meta property="og:description" content={`Narxi: ${product.lowestPrice.toLocaleString()} - ${product.highestPrice.toLocaleString()} so'm`} />
-        <meta property="og:image" content={product.imageUrl} />
-        <meta property="og:site_name" content="Qancha.uz" />
+        <meta property="og:type" content="product" key="og:type" />
+        <meta property="og:url" content={`${window.location.origin}/product/${product.id}`} key="og:url" />
+        <meta property="og:title" content={`${product.name} - Qancha.uz`} key="og:title" />
+        <meta property="og:description" content={`Narxi: ${product.lowestPrice.toLocaleString()} - ${product.highestPrice.toLocaleString()} so'm`} key="og:description" />
+        <meta property="og:image" content={product.imageUrl} key="og:image" />
+        <meta property="og:site_name" content="Qancha.uz" key="og:site_name" />
         
         {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content={`${window.location.origin}/product/${product.id}`} />
-        <meta name="twitter:title" content={`${product.name} - Qancha.uz`} />
-        <meta name="twitter:description" content={`Narxi: ${product.lowestPrice.toLocaleString()} - ${product.highestPrice.toLocaleString()} so'm`} />
-        <meta name="twitter:image" content={product.imageUrl} />
+        <meta name="twitter:card" content="summary_large_image" key="twitter:card" />
+        <meta name="twitter:url" content={`${window.location.origin}/product/${product.id}`} key="twitter:url" />
+        <meta name="twitter:title" content={`${product.name} - Qancha.uz`} key="twitter:title" />
+        <meta name="twitter:description" content={`Narxi: ${product.lowestPrice.toLocaleString()} - ${product.highestPrice.toLocaleString()} so'm`} key="twitter:description" />
+        <meta name="twitter:image" content={product.imageUrl} key="twitter:image" />
         
         {/* Structured Data for Google */}
         <script type="application/ld+json">
