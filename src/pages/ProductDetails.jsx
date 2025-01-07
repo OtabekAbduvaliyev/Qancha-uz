@@ -62,7 +62,7 @@ const ProductDetails = () => {
         <meta property="og:url" content={`${window.location.origin}/product/${product.id}`} key="og:url" />
         <meta property="og:title" content={`${product.name} - Qancha.uz`} key="og:title" />
         <meta property="og:description" content={`Narxi: ${product.lowestPrice.toLocaleString()} - ${product.highestPrice.toLocaleString()} so'm`} key="og:description" />
-        <meta property="og:image" content={product.imageUrl} key="og:image" />
+        <meta property="og:image" content={product.image} key="og:image" />
         <meta property="og:site_name" content="Qancha.uz" key="og:site_name" />
         
         {/* Twitter */}
@@ -79,7 +79,7 @@ const ProductDetails = () => {
             "@type": "Product",
             "name": product.name,
             "description": `${product.name} - Narxi: ${product.lowestPrice.toLocaleString()} - ${product.highestPrice.toLocaleString()} so'm`,
-            "image": product.imageUrl,
+            "image": product.image,
             "url": `${window.location.origin}/product/${product.id}`,
             "offers": {
               "@type": "AggregateOffer",

@@ -9,7 +9,6 @@ import { AuthProvider } from './contexts/AuthContext'
 import { AlertProvider } from './contexts/AlertContext'
 import { db } from './firebase'
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore'
-import { SEO } from './components/SEO';
 import BulkProductUpload from './components/BulkProductUpload';
 import { Helmet } from 'react-helmet-async';
 
@@ -142,32 +141,40 @@ function App() {
       <AuthProvider>
         <AlertProvider>
           <Helmet>
-            <title>Qancha.uz - Uzbekistan's Premier Marketplace</title>
-            <meta name="description" content="Qancha.uz - Yo trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you." key="description" />
-            <meta name="keywords" content="marketplace, uzbekistan, online shopping, buy, sell, products, qancha" key="keywords" />
-            <meta name="author" content="Qancha.uz" key="author" />
-            <meta name="robots" content="index, follow" key="robots" />
+            <title>Qancha.uz - Kerak narxni shu yerdan toping!</title>
+            <meta name="description" content="Your trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you." />
+            <meta name="keywords" content="marketplace, uzbekistan, online shopping, buy, sell, products, qancha" />
             
             {/* Open Graph / Facebook */}
-            <meta property="og:type" content="website" key="og:type" />
-            <meta property="og:url" content="https://qancha-uz.vercel.app/" key="og:url" />
-            <meta property="og:title" content="Qancha.uz - Uzbekistan's Premier Marketplace" key="og:title" />
-            <meta property="og:description" content="Your trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you." key="og:description" />
-            <meta property="og:image" content="https://qancha-uz.vercel.app/src/assets/main.png" key="og:image" />
-            <meta property="og:image:alt" content="Qancha.uz marketplace logo" key="og:image:alt" />
-            <meta property="og:site_name" content="Qancha.uz" key="og:site_name" />
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content={window.location.origin} />
+            <meta property="og:title" content="Qancha.uz - Kerak narxni shu yerdan toping!" />
+            <meta property="og:description" content="Your trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you." />
+            <meta property="og:site_name" content="Qancha.uz" />
+            <meta property="og:locale" content="uz_UZ" />
             
             {/* Twitter */}
-            <meta name="twitter:card" content="summary_large_image" key="twitter:card" />
-            <meta name="twitter:url" content="https://qancha-uz.vercel.app/" key="twitter:url" />
-            <meta name="twitter:title" content="Qancha.uz - Uzbekistan's Premier Marketplace" key="twitter:title" />
-            <meta name="twitter:description" content="Your trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you." key="twitter:description" />
-            <meta name="twitter:image" content="https://qancha-uz.vercel.app/src/assets/main.png" key="twitter:image" />
-            <meta name="twitter:image:alt" content="Qancha.uz marketplace logo" key="twitter:image:alt" />
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:url" content={window.location.origin} />
+            <meta name="twitter:title" content="Qancha.uz - Kerak narxni shu yerdan toping!" />
+            <meta name="twitter:description" content="Your trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you." />
+            
+            {/* Additional Meta Tags */}
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+            <meta name="robots" content="index, follow" />
+            <meta name="language" content="Uzbek" />
+            <meta name="author" content="Qancha.uz" />
+            
+            {/* Favicon */}
+            <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+            <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+            <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+            <link rel="manifest" href="/site.webmanifest" />
           </Helmet>
+
           <div className="min-h-screen bg-gray-50">
             <Navbar />
-            <SEO />
             <Routes>
               <Route path="/" element={
                 <div className="py-6">
