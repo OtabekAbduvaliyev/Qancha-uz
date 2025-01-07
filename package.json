@@ -8,8 +8,8 @@
     "build": "vite build",
     "postbuild": "vite build --ssr server/index.js && node clean-meta-tags.js",
     "lint": "eslint .",
-    "preview": "NODE_ENV=production node server",
-    "start": "NODE_ENV=production node server"
+    "preview": "cross-env NODE_ENV=production node server",
+    "start": "cross-env NODE_ENV=production node server"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.47.10",
@@ -32,6 +32,7 @@
     "@types/react-dom": "^18.2.0",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
+    "cross-env": "^7.0.3",
     "eslint": "^9.17.0",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",
