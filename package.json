@@ -5,13 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run build:client && npm run build:server",
-    "build:client": "vite build --outDir dist/client",
-    "build:server": "vite build --outDir dist/server --ssr src/entry-server.jsx",
-    "serve": "node server/index.mjs",
+    "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "vercel-build": "npm run build"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.47.10",
