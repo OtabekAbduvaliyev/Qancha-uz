@@ -18,7 +18,19 @@ const app = express();
 // Middleware
 app.use(compression());
 
-// Serve static files from both dist/client and public directories
+// Serve static files from client build directory with proper MIME types
+app.use('/assets', express.static(resolve('../dist/client/assets'), {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript');
+    } else if (path.endsWith('.css')) {
+      res.setHeader('Content-Type', 'text/css');
+    }
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+  }
+}));
+
+// Serve other static files
 app.use(express.static(resolve('../dist/client')));
 app.use(express.static(resolve('../public')));
 
@@ -32,6 +44,14 @@ app.use('*', async (req, res) => {
     const filePath = resolve(`../public${url}`);
     if (fs.existsSync(filePath)) {
       return res.sendFile(filePath);
+    }
+  }
+
+  // Handle asset requests
+  if (url.startsWith('/assets/')) {
+    const assetPath = resolve(`../dist/client${url}`);
+    if (fs.existsSync(assetPath)) {
+      return res.sendFile(assetPath);
     }
   }
 
