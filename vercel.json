@@ -23,8 +23,24 @@
       }
     },
     {
+      "src": "/site.webmanifest",
+      "dest": "/site.webmanifest",
+      "headers": {
+        "content-type": "application/manifest+json",
+        "cache-control": "public, max-age=3600"
+      }
+    },
+    {
+      "src": "/favicon-16x16.png",
+      "dest": "/favicon-16x16.png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "dest": "/favicon-32x32.png"
+    },
+    {
       "src": "/favicon.ico",
-      "dest": "/dist/client/favicon.ico"
+      "dest": "/favicon.ico"
     },
     {
       "handle": "filesystem"

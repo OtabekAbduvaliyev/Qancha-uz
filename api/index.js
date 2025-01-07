@@ -17,13 +17,25 @@ const app = express();
 
 // Middleware
 app.use(compression());
+
+// Serve static files from both dist/client and public directories
 app.use(express.static(resolve('../dist/client')));
+app.use(express.static(resolve('../public')));
 
 // SSR handler
 app.use('*', async (req, res) => {
+  const url = req.originalUrl;
+
+  // Handle static file requests first
+  const staticFiles = ['/site.webmanifest', '/favicon.ico', '/favicon-16x16.png', '/favicon-32x32.png'];
+  if (staticFiles.includes(url)) {
+    const filePath = resolve(`../public${url}`);
+    if (fs.existsSync(filePath)) {
+      return res.sendFile(filePath);
+    }
+  }
+
   try {
-    const url = req.originalUrl;
-    
     // Read the static index.html file
     const template = fs.readFileSync(
       resolve('../dist/client/index.html'),
