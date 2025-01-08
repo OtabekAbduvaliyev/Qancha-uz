@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-helmet';
 
 const Meta = ({ productDetail }) => {
   const defaultImage = "https://xzmtjxrgjcorslyfxxvm.supabase.co/storage/v1/object/public/qancha-products/favicon-16x16.png";
   const baseUrl = "https://qancha-uz.vercel.app";
   
   const defaultMeta = {
+    url: "https://qancha-uz.vercel.app",
     title: "Qancha.uz - Kerak narxni shu yerdan toping!",
     description: "Your trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you.",
     image: defaultImage,
-    url: baseUrl,
     keywords: "marketplace, uzbekistan, online shopping, buy, sell, products, qancha, tashkent"
   };
 
@@ -26,7 +26,7 @@ const Meta = ({ productDetail }) => {
   useEffect(() => {
     // This effect can be used for any initialization if needed in the future
   }, [productDetail]);
-
+  console.log(metaContent);
   return (
     <Helmet>
       <title>{metaContent.title}</title>
@@ -37,7 +37,7 @@ const Meta = ({ productDetail }) => {
       <link rel="canonical" href={metaContent.url} />
       
       {/* Open Graph / Facebook */}
-      <meta property="og:type" content="website" />
+      <meta property="og:type" content={`${productDetail ? "product" : "website"}`} />
       <meta property="og:url" content={metaContent.url} />
       <meta property="og:title" content={metaContent.title} />
       <meta property="og:description" content={metaContent.description} />
