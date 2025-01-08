@@ -59,7 +59,7 @@ const Meta = ({ productDetail }) => {
       <link rel="canonical" href={metaContent.url} />
       
       {/* Open Graph / Facebook */}
-      <meta property="og:type" content={`${productDetail ? "product" : "website"}`} />
+      <meta property="og:type" content="artcile" />
       <meta property="og:url" content={metaContent.url} />
       <meta property="og:title" content={metaContent.title} />
       <meta property="og:description" content={metaContent.description} />
