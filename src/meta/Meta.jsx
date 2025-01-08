@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 const Meta = ({ productDetail }) => {
@@ -13,22 +13,19 @@ const Meta = ({ productDetail }) => {
     keywords: "marketplace, uzbekistan, online shopping, buy, sell, products, qancha, tashkent"
   };
 
-  // Use state to check if data is loaded before rendering meta tags
-  const [isDataLoaded, setIsDataLoaded] = useState(false);
-
-  useEffect(() => {
-    if (productDetail) {
-      setIsDataLoaded(true);
-    }
-  }, [productDetail]);
-
-  const metaContent = isDataLoaded ? {
+  const metaContent = productDetail ? {
     url: `${baseUrl}/product/${productDetail.id}`,
     title: `${productDetail.name} - Qancha.uz`,
-    description: `${productDetail.name} - Narxi: ${productDetail.lowestPrice?.toLocaleString()} - ${productDetail.highestPrice?.toLocaleString()} so'm`,
+    description: productDetail.lowestPrice && productDetail.highestPrice 
+      ? `${productDetail.name} - Narxi: ${productDetail.lowestPrice?.toLocaleString()} - ${productDetail.highestPrice?.toLocaleString()} so'm`
+      : `${productDetail.name} - Qancha.uz`,
     image: productDetail.image || defaultImage,
     keywords: `${productDetail.name}, ${productDetail.type}, qancha.uz, narx, price`
   } : defaultMeta;
+
+  useEffect(() => {
+    // This effect can be used for any initialization if needed in the future
+  }, [productDetail]);
 
   return (
     <Helmet>
@@ -40,7 +37,7 @@ const Meta = ({ productDetail }) => {
       <link rel="canonical" href={metaContent.url} />
       
       {/* Open Graph / Facebook */}
-      <meta property="og:type" content={'website'} />
+      <meta property="og:type" content="website" />
       <meta property="og:url" content={metaContent.url} />
       <meta property="og:title" content={metaContent.title} />
       <meta property="og:description" content={metaContent.description} />
@@ -49,16 +46,18 @@ const Meta = ({ productDetail }) => {
       <meta property="og:locale" content="uz_UZ" />
 
       {/* Twitter */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:url" content={metaContent.url} />
-      <meta name="twitter:title" content={metaContent.title} />
-      <meta name="twitter:description" content={metaContent.description} />
-      <meta name="twitter:image" content={metaContent.image} />
+      <meta property="twitter:card" content="summary_large_image" />
+      <meta property="twitter:url" content={metaContent.url} />
+      <meta property="twitter:title" content={metaContent.title} />
+      <meta property="twitter:description" content={metaContent.description} />
+      <meta property="twitter:image" content={metaContent.image} />
       
       {/* Additional Meta Tags */}
       <meta name="robots" content="index, follow" />
       <meta name="author" content="Qancha.uz" />
       <meta name="language" content="Uzbek" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="geo.region" content="UZ" />
       <meta name="geo.placename" content="Tashkent" />
 
