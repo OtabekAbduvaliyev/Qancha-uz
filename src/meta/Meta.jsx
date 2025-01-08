@@ -61,27 +61,49 @@ const Meta = ({ productDetail }) => {
       <meta name="geo.region" content="UZ" />
       <meta name="geo.placename" content="Tashkent" />
 
-      {/* Structured Data for Google */}
+      {/* Schema.org structured data */}
       <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Product",
-          "name": metaContent.title,
-          "description": metaContent.description,
-          "image": metaContent.image,
-          "url": metaContent.url,
-          "offers": {
-            "@type": "AggregateOffer",
-            "lowPrice": productDetail?.lowestPrice,
-            "highPrice": productDetail?.highestPrice,
-            "priceCurrency": "UZS",
-            "availability": productDetail?.isSellerAvailable ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
-          },
-          "brand": {
-            "@type": "Brand",
-            "name": "Qancha.uz"
+        {JSON.stringify(
+          productDetail ? {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": productDetail.name,
+            "description": metaContent.description,
+            "image": productDetail.image || defaultImage,
+            "offers": {
+              "@type": "AggregateOffer",
+              "priceCurrency": "UZS",
+              "lowPrice": productDetail.lowestPrice || 0,
+              "highPrice": productDetail.highestPrice || 0,
+              "offerCount": productDetail.offerCount || 1,
+              "availability": "http://schema.org/OutOfStock"
+            },
+            "aggregateRating": productDetail.rating ? {
+              "@type": "AggregateRating",
+              "ratingValue": productDetail.rating,
+              "reviewCount": productDetail.reviewCount || 0
+            } : undefined,
+            "review": productDetail.reviews ? productDetail.reviews.map(review => ({
+              "@type": "Review",
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": review.rating
+              },
+              "author": {
+                "@type": "Person",
+                "name": review.author
+              },
+              "reviewBody": review.content
+            })) : undefined
+          } : {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "url": baseUrl,
+            "name": defaultMeta.title,
+            "description": defaultMeta.description,
+            "image": defaultMeta.image
           }
-        })}
+        )}
       </script>
     </Helmet>
   );
