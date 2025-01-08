@@ -27,6 +27,28 @@ const Meta = ({ productDetail }) => {
     // This effect can be used for any initialization if needed in the future
   }, [productDetail]);
   console.log(metaContent);
+ if(!productDetail) {
+    return (
+      <Helmet>
+        <title>{defaultMeta.title}</title>
+        <meta name="title" content={defaultMeta.title} />
+        <meta name="description" content={defaultMeta.description} />
+        <meta name="keywords" content={defaultMeta.keywords} />
+        
+        <link rel="canonical" href={defaultMeta.url} />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={defaultMeta.url} />
+        <meta property="og:title" content={defaultMeta.title} />
+        <meta property="og:description" content={defaultMeta.description} />
+        <meta property="og:image" content={defaultMeta.image} />
+        <meta property="og:site_name" content="Qancha.uz" />
+        <meta property="og:locale" content="uz_UZ" />
+      </Helmet>
+    );
+  }
+
   return (
     <Helmet>
       <title>{metaContent.title}</title>
