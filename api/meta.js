@@ -19,6 +19,18 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 export default async function handler(req, res) {
+  // Check if this is a bot/crawler
+  const userAgent = req.headers['user-agent'] || '';
+  const isBot = /bot|crawler|spider|pinterest|facebook|twitter|telegram/i.test(userAgent);
+
+  if (!isBot) {
+    // For regular users, redirect to the SPA
+    res.writeHead(302, {
+      Location: '/'
+    });
+    return res.end();
+  }
+
   const url = new URL(req.url, `https://${req.headers.host}`);
   const pathParts = url.pathname.split('/');
   const productId = pathParts[pathParts.indexOf('product') + 1];
@@ -46,10 +58,6 @@ export default async function handler(req, res) {
     const description = priceRange
       ? `${product.name} - Narxi: ${priceRange}`
       : `${product.name} - Qancha.uz`;
-
-    // Read the base HTML file
-    const htmlPath = path.join(process.cwd(), 'dist', 'index.html');
-    let html = fs.readFileSync(htmlPath, 'utf-8');
 
     // Construct meta tags with special attention to Telegram requirements
     const metaTags = `
@@ -92,12 +100,18 @@ export default async function handler(req, res) {
     <meta itemprop="description" content="${description}">
     <meta itemprop="image" content="${product.image}">`;
 
-    // Replace the head section while preserving necessary scripts
-    html = html.replace(/<head>[\s\S]*?<\/head>/, `<head>${metaTags}
-    <link rel="icon" type="image/png" href="/favicon.ico">
-    <link rel="stylesheet" href="/assets/index-Bjfgic30.css">
-    <script type="module" crossorigin src="/assets/index-DgdL0Fxd.js"></script>
-    </head>`);
+    // For bots, return a simple HTML with just meta tags
+    const html = `<!DOCTYPE html>
+<html lang="uz">
+<head>
+    ${metaTags}
+</head>
+<body>
+    <h1>${product.name}</h1>
+    <p>${description}</p>
+    <img src="${product.image}" alt="${product.name}">
+</body>
+</html>`;
 
     // Set cache control headers
     res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
