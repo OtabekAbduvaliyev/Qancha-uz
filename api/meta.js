@@ -51,35 +51,57 @@ export default async function handler(req, res) {
     const htmlPath = path.join(process.cwd(), 'dist', 'index.html');
     let html = fs.readFileSync(htmlPath, 'utf-8');
 
-    // Replace meta tags
+    // Construct meta tags with special attention to Telegram requirements
     const metaTags = `
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${product.name} - Qancha.uz</title>
-    <meta name="title" content="${product.name} - Qancha.uz" />
-    <meta name="description" content="${description}" />
-    <meta name="keywords" content="${product.name}, ${product.type || ''}, ${product.category || ''}, qancha.uz, narx, price" />
     
-    <meta property="og:type" content="product" />
-    <meta property="og:url" content="https://qancha-uz.vercel.app/product/${product.id}" />
-    <meta property="og:title" content="${product.name} - Qancha.uz" />
-    <meta property="og:description" content="${description}" />
-    <meta property="og:image" content="${product.image}" />
-    <meta property="og:site_name" content="Qancha.uz" />
-    <meta property="og:locale" content="uz_UZ" />
+    <!-- Basic Meta Tags -->
+    <meta name="title" content="${product.name} - Qancha.uz">
+    <meta name="description" content="${description}">
+    <link rel="canonical" href="https://qancha-uz.vercel.app/product/${product.id}">
     
-    <meta property="product:price:amount" content="${product.lowestPrice || ''}" />
-    <meta property="product:price:currency" content="UZS" />
-    <meta property="product:availability" content="${product.availability || 'in stock'}" />
+    <!-- Open Graph Meta Tags (Facebook, Telegram, etc) -->
+    <meta property="og:site_name" content="Qancha.uz">
+    <meta property="og:type" content="product">
+    <meta property="og:title" content="${product.name} - Qancha.uz">
+    <meta property="og:description" content="${description}">
+    <meta property="og:image" content="${product.image}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:url" content="https://qancha-uz.vercel.app/product/${product.id}">
+    <meta property="og:locale" content="uz_UZ">
     
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://qancha-uz.vercel.app/product/${product.id}" />
-    <meta name="twitter:title" content="${product.name} - Qancha.uz" />
-    <meta name="twitter:description" content="${description}" />
-    <meta name="twitter:image" content="${product.image}" />`;
+    <!-- Product Specific Meta Tags -->
+    <meta property="product:price:amount" content="${product.lowestPrice || ''}">
+    <meta property="product:price:currency" content="UZS">
+    <meta property="product:availability" content="${product.availability || 'in stock'}">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@qancha_uz">
+    <meta name="twitter:title" content="${product.name} - Qancha.uz">
+    <meta name="twitter:description" content="${description}">
+    <meta name="twitter:image" content="${product.image}">
+    <meta name="twitter:url" content="https://qancha-uz.vercel.app/product/${product.id}">
+    
+    <!-- Additional Meta Tags for Telegram -->
+    <meta property="telegram:channel" content="@qancha_uz">
+    <meta itemprop="name" content="${product.name} - Qancha.uz">
+    <meta itemprop="description" content="${description}">
+    <meta itemprop="image" content="${product.image}">`;
 
-    // Replace the head section
-    html = html.replace(/<head>[\s\S]*?<\/head>/, `<head>${metaTags}</head>`);
+    // Replace the head section while preserving necessary scripts
+    html = html.replace(/<head>[\s\S]*?<\/head>/, `<head>${metaTags}
+    <link rel="icon" type="image/png" href="/favicon.ico">
+    <link rel="stylesheet" href="/assets/index-Bjfgic30.css">
+    <script type="module" crossorigin src="/assets/index-DgdL0Fxd.js"></script>
+    </head>`);
 
-    res.setHeader('Content-Type', 'text/html');
+    // Set cache control headers
+    res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.status(200).send(html);
   } catch (error) {
     console.error('Error:', error);

@@ -7,7 +7,18 @@
         {
           "type": "header",
           "key": "user-agent",
-          "value": ".*((facebook|telegram|whatsapp|twitter|linkedin|bot|crawler).*).*"
+          "value": ".*(TelegramBot|facebookexternalhit|Facebot|Twitterbot|LinkedInBot|WhatsApp|bot|crawler).*"
+        }
+      ],
+      "dest": "/api/meta?id=$id"
+    },
+    {
+      "src": "/product/(?<id>[^/]+)$",
+      "has": [
+        {
+          "type": "header",
+          "key": "sec-fetch-dest",
+          "value": "document"
         }
       ],
       "dest": "/api/meta?id=$id"
