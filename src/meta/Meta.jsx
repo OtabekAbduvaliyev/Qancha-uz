@@ -44,16 +44,13 @@ const Meta = ({ productDetail }) => {
 
   return (
     <Helmet>
-      {/* Basic Meta Tags */}
       <title>{meta.title}</title>
       <meta name="title" content={meta.title} />
       <meta name="description" content={meta.description} />
       <meta name="keywords" content={meta.keywords} />
       
-      {/* Canonical URL */}
       <link rel="canonical" href={meta.url} />
       
-      {/* Open Graph / Facebook */}
       <meta property="og:type" content={productDetail ? 'product' : 'website'} />
       <meta property="og:url" content={meta.url} />
       <meta property="og:title" content={meta.title} />
@@ -62,7 +59,6 @@ const Meta = ({ productDetail }) => {
       <meta property="og:site_name" content="Qancha.uz" />
       <meta property="og:locale" content="uz_UZ" />
 
-      {/* Product Specific Meta Tags */}
       {productDetail && (
         <>
           <meta property="product:price:amount" content={meta.price} />
@@ -71,7 +67,6 @@ const Meta = ({ productDetail }) => {
         </>
       )}
       
-      {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:url" content={meta.url} />
       <meta name="twitter:title" content={meta.title} />
