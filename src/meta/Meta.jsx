@@ -33,7 +33,10 @@ const Meta = ({ productDetail }) => {
       title: `${productDetail.name} - Qancha.uz`,
       description: description,
       image: productDetail.image || defaultImage,
-      keywords: `${productDetail.name}, ${productDetail.type || ''}, ${productDetail.category || ''}, qancha.uz, narx, price`
+      keywords: `${productDetail.name}, ${productDetail.type || ''}, ${productDetail.category || ''}, qancha.uz, narx, price`,
+      price: productDetail.lowestPrice || '',
+      currency: 'UZS',
+      availability: productDetail.availability || 'in stock'
     };
   };
 
@@ -59,19 +62,12 @@ const Meta = ({ productDetail }) => {
       <meta property="og:site_name" content="Qancha.uz" />
       <meta property="og:locale" content="uz_UZ" />
 
-      {/* Additional Product Meta Tags */}
+      {/* Product Specific Meta Tags */}
       {productDetail && (
         <>
-          <meta property="og:price:amount" content={productDetail.lowestPrice || ''} />
-          <meta property="og:price:currency" content="UZS" />
-          <meta property="product:price:amount" content={productDetail.lowestPrice || ''} />
-          <meta property="product:price:currency" content="UZS" />
-          {productDetail.category && (
-            <meta property="product:category" content={productDetail.category} />
-          )}
-          {productDetail.availability && (
-            <meta property="product:availability" content={productDetail.availability} />
-          )}
+          <meta property="product:price:amount" content={meta.price} />
+          <meta property="product:price:currency" content={meta.currency} />
+          <meta property="product:availability" content={meta.availability} />
         </>
       )}
       
