@@ -1,13 +1,20 @@
 {
   "version": 2,
-  "rewrites": [
+  "routes": [
     {
-      "source": "/product/:id",
-      "destination": "/api/product/:id"
+      "src": "/product/(?<id>[^/]+)$",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": ".*((facebook|telegram|whatsapp|twitter|linkedin|bot|crawler).*).*"
+        }
+      ],
+      "dest": "/api/meta?id=$id"
     },
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ],
   "env": {
