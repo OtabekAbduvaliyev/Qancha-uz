@@ -7,13 +7,13 @@ import { useNavigate } from 'react-router-dom';
 
 const ProductCardSkeleton = () => {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden animate-pulse">
-      <div className="h-48 bg-gray-200" />
+    <div className="bg-white dark:bg-dark-800 rounded-xl shadow-sm border border-gray-100 dark:border-dark-700 overflow-hidden animate-pulse">
+      <div className="h-48 bg-gray-200 dark:bg-dark-700" />
       <div className="p-4">
-        <div className="h-6 bg-gray-200 rounded w-3/4 mb-2" />
+        <div className="h-6 bg-gray-200 dark:bg-dark-700 rounded w-3/4 mb-2" />
         <div className="space-y-2">
-          <div className="h-4 bg-gray-200 rounded w-1/2" />
-          <div className="h-4 bg-gray-200 rounded w-1/2" />
+          <div className="h-4 bg-gray-200 dark:bg-dark-700 rounded w-1/2" />
+          <div className="h-4 bg-gray-200 dark:bg-dark-700 rounded w-1/2" />
         </div>
       </div>
     </div>
@@ -50,33 +50,33 @@ const ProductCard = ({ product, onEdit, loading }) => {
   const handleDelete = async () => {
     setLoading(true);
     try {
-      const productRef = doc(db, 'products', product.id);
-      await deleteDoc(productRef);
-      setShowDeleteModal(false);
+      await deleteDoc(doc(db, 'products', product.id));
     } catch (error) {
       console.error('Error deleting product:', error);
-    } finally {
-      setLoading(false);
     }
+    setLoading(false);
+    setShowDeleteModal(false);
   };
 
-  if (loading) {
-    return <ProductCardSkeleton />;
-  }
+  if (loading) return <ProductCardSkeleton />;
 
   return (
     <>
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-300">
-        <div className="relative group">
-          <img
-            src={product.image || '/src/assets/main.png'}
-            alt={product.name}
-            className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
-            onError={(e) => {
-              e.target.src = '/src/assets/main.png';
-            }}
-          />
-          <div className="absolute top-3 right-3 flex items-center gap-2">
+      <div className="group bg-white dark:bg-dark-800 rounded-xl shadow-sm border border-gray-100 dark:border-dark-700 overflow-hidden transition-all hover:shadow-md">
+        <div className="relative">
+          <div className="relative aspect-[4/3] overflow-hidden">
+            <div className="absolute inset-0 bg-black/5 dark:bg-black/40 group-hover:bg-black/10 dark:group-hover:bg-black/50 transition-colors z-10" />
+            <img
+              src={product.image || '/src/assets/main.png'}
+              alt={product.name}
+              className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
+              onError={(e) => {
+                e.target.src = '/src/assets/main.png';
+              }}
+            />
+          </div>
+          
+          <div className="absolute top-3 right-3 z-20 flex items-center space-x-2">
             {isAdmin && (
               <>
                 <button
@@ -84,11 +84,10 @@ const ProductCard = ({ product, onEdit, loading }) => {
                     e.stopPropagation();
                     onEdit(product);
                   }}
-                  className="p-2 bg-white/90 backdrop-blur-sm rounded-full text-gray-700 hover:text-blue-600 hover:bg-white transition-colors"
-                  title="Tahrirlash"
+                  className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white bg-white/80 dark:bg-dark-800/80 backdrop-blur-sm rounded-full shadow-sm hover:shadow transition-all"
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                   </svg>
                 </button>
                 <button
@@ -96,10 +95,10 @@ const ProductCard = ({ product, onEdit, loading }) => {
                     e.stopPropagation();
                     setShowDeleteModal(true);
                   }}
-                  className="p-2 bg-white/90 backdrop-blur-sm rounded-full text-gray-700 hover:text-red-600 hover:bg-white transition-colors"
-                  title="O'chirish"
+                  className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 bg-white/80 dark:bg-dark-800/80 backdrop-blur-sm rounded-full shadow-sm hover:shadow transition-all"
+                  disabled={loadingState}
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                   </svg>
                 </button>
@@ -107,17 +106,17 @@ const ProductCard = ({ product, onEdit, loading }) => {
             )}
             <button
               onClick={() => navigate(`/product/${product.id}`)}
-              className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-sm hover:bg-white transition-colors"
+              className="p-2 bg-white/90 dark:bg-dark-800/90 backdrop-blur-sm rounded-full shadow-sm hover:bg-white dark:hover:bg-dark-800 transition-colors"
               title="Batafsil ko'rish"
             >
-              <svg className="w-5 h-5 text-gray-600 hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
               </svg>
             </button>
             <button
               onClick={handleLike}
-              className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-sm hover:bg-white transition-colors"
+              className="p-2 bg-white/90 dark:bg-dark-800/90 backdrop-blur-sm rounded-full shadow-sm hover:bg-white dark:hover:bg-dark-800 transition-colors"
               aria-label={isLiked ? "Saralangandan olib tashlash" : "Saralanganga qo'shish"}
             >
               <svg
@@ -139,27 +138,27 @@ const ProductCard = ({ product, onEdit, loading }) => {
 
         <div className="p-4 flex flex-col flex-grow">
           <div className="flex items-center justify-between mb-2">
-            <h3 className="text-lg font-semibold text-gray-900 flex-grow truncate">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex-grow truncate">
               {product.name}
             </h3>
             {isAdmin && (
-              <div className="text-sm text-gray-500">
+              <div className="text-sm text-gray-500 dark:text-gray-400">
                 {product.forwards || 0} ulashilgan
               </div>
             )}
           </div>
-          <div className="flex items-center justify-between text-sm text-gray-500">
+          <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
             <span>{product.type}</span>
             <span>{product.views || 0} ko'rildi</span>
           </div>
           <div className="mt-2">
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-400">
               {product.lowestPrice.toLocaleString()} - {product.highestPrice.toLocaleString()} so'm
             </p>
           </div>
-          <div className="flex items-center gap-2 pt-3 border-t border-gray-100">
+          <div className="flex items-center gap-2 pt-3 border-t border-gray-100 dark:border-dark-700">
             <button
-              className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 transition-colors"
+              className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white bg-white dark:bg-dark-700 hover:bg-gray-50 dark:hover:bg-dark-600 px-3 py-1.5 rounded-xl border border-gray-200 dark:border-dark-600 transition-colors"
               onClick={async () => {
                 const productUrl = `${window.location.origin}/product/${product.id}`;
                 window.open(
@@ -188,7 +187,7 @@ const ProductCard = ({ product, onEdit, loading }) => {
               Ulashish
             </button>
             <button
-              className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-900 transition-colors"
+              className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white bg-white dark:bg-dark-700 hover:bg-gray-50 dark:hover:bg-dark-600 px-3 py-1.5 rounded-xl border border-gray-200 dark:border-dark-600 transition-colors"
               onClick={() => {
                 const productUrl = `${window.location.origin}/product/${product.id}`;
                 const shareText = `${product.name}\n${productUrl}`;

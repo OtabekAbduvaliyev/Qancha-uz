@@ -182,12 +182,12 @@ const AdminProductForm = ({ onClose }) => {
   return (
     <div className="fixed inset-0 z-50 overflow-hidden flex items-center justify-center">
       <div className="absolute inset-0 bg-black bg-opacity-50" onClick={onClose}></div>
-      <div className="relative bg-white rounded-lg shadow-xl w-full max-w-md m-4">
-        <div className="flex justify-between items-center p-6 border-b">
-          <h2 className="text-2xl font-bold text-gray-900">Yangi mahsulot qo'shish</h2>
+      <div className="relative bg-white dark:bg-dark-800 rounded-lg shadow-xl w-full max-w-md m-4">
+        <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-dark-700">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Yangi mahsulot qo'shish</h2>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700"
+            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
           >
             ✕
           </button>
@@ -195,14 +195,14 @@ const AdminProductForm = ({ onClose }) => {
 
         <div className="p-6 overflow-y-auto max-h-[calc(100vh-16rem)]">
           {error && (
-            <div className="bg-red-100 text-red-600 p-3 rounded-lg mb-4">
+            <div className="bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 p-3 rounded-lg mb-4">
               {error}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                 Mahsulot nomi
               </label>
               <input
@@ -210,224 +210,208 @@ const AdminProductForm = ({ onClose }) => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-400"
                 required
+                className="w-full px-3 py-2 border border-gray-300 dark:border-dark-600 rounded-lg 
+                  text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500
+                  bg-white dark:bg-dark-700
+                  focus:ring-2 focus:ring-primary-500/20 dark:focus:ring-primary-400/20 
+                  focus:border-primary-500 dark:focus:border-primary-400"
+                placeholder="Mahsulot nomini kiriting"
               />
             </div>
 
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
+                  Eng arzon narx
+                </label>
+                <input
+                  type="number"
+                  name="lowestPrice"
+                  value={formData.lowestPrice}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-dark-600 rounded-lg 
+                    text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500
+                    bg-white dark:bg-dark-700
+                    focus:ring-2 focus:ring-primary-500/20 dark:focus:ring-primary-400/20 
+                    focus:border-primary-500 dark:focus:border-primary-400"
+                  placeholder="0"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
+                  Eng qimmat narx
+                </label>
+                <input
+                  type="number"
+                  name="highestPrice"
+                  value={formData.highestPrice}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-dark-600 rounded-lg 
+                    text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500
+                    bg-white dark:bg-dark-700
+                    focus:ring-2 focus:ring-primary-500/20 dark:focus:ring-primary-400/20 
+                    focus:border-primary-500 dark:focus:border-primary-400"
+                  placeholder="0"
+                />
+              </div>
+            </div>
+
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
                 Mahsulot turi
               </label>
               <select
                 name="type"
                 value={formData.type}
                 onChange={handleChange}
-                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-400"
                 required
+                className="w-full px-3 py-2 border border-gray-300 dark:border-dark-600 rounded-lg 
+                  text-gray-900 dark:text-white 
+                  bg-white dark:bg-dark-700
+                  focus:ring-2 focus:ring-primary-500/20 dark:focus:ring-primary-400/20 
+                  focus:border-primary-500 dark:focus:border-primary-400"
               >
-                <option value="">Turni tanlang</option>
-                {Object.entries(productTypes).map(([uzName, engValue]) => (
-                  <option key={engValue} value={engValue}>
-                    {uzName}
-                  </option>
+                <option value="">Tanlang</option>
+                {Object.entries(productTypes).map(([key]) => (
+                  <option key={key} value={key}>{key}</option>
                 ))}
               </select>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Eng past narx (so'm)
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
+                Rasm qo'shish usuli
               </label>
-              <input
-                type="text"
-                name="lowestPrice"
-                value={formData.lowestPrice}
-                onChange={handleChange}
-                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-400"
-                required
-                pattern="[0-9,]*"
-                placeholder="Masalan: 1,000,000"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Eng yuqori narx (so'm)
-              </label>
-              <input
-                type="text"
-                name="highestPrice"
-                value={formData.highestPrice}
-                onChange={handleChange}
-                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-400"
-                required
-                pattern="[0-9,]*"
-                placeholder="Masalan: 1,500,000"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Sotuvchi mavjudmi?
-              </label>
-              <div className="flex space-x-4">
-                <label className="flex items-center space-x-2">
-                  <input
-                    type="radio"
-                    name="isSellerAvailable"
-                    checked={!formData.isSellerAvailable}
-                    onChange={() => setFormData(prev => ({ ...prev, isSellerAvailable: false, phoneNumber: '' }))}
-                    className="text-blue-600 focus:ring-blue-500"
-                  />
-                  <span className="text-sm font-medium text-gray-700">Yo'q</span>
-                </label>
-                <label className="flex items-center space-x-2">
-                  <input
-                    type="radio"
-                    name="isSellerAvailable"
-                    checked={formData.isSellerAvailable}
-                    onChange={() => setFormData(prev => ({ ...prev, isSellerAvailable: true }))}
-                    className="text-blue-600 focus:ring-blue-500"
-                  />
-                  <span className="text-sm font-medium text-gray-700">Ha</span>
-                </label>
-              </div>
-            </div>
-
-            {formData.isSellerAvailable && (
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Telefon raqami
-                </label>
-                <input
-                  type="tel"
-                  name="phoneNumber"
-                  value={formData.phoneNumber}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-400"
-                  placeholder="+998 90 123 45 67"
-                  required={formData.isSellerAvailable}
-                />
-              </div>
-            )}
-
-            <div className="space-y-4">
-              <div className="flex space-x-4">
-                <label className="flex items-center space-x-2">
+              <div className="flex gap-4 mb-2">
+                <label className="flex items-center">
                   <input
                     type="radio"
                     name="imageMethod"
                     value="url"
                     checked={formData.imageMethod === 'url'}
                     onChange={handleChange}
-                    className="text-blue-600 focus:ring-blue-500"
+                    className="mr-2"
                   />
-                  <span className="text-sm font-medium text-gray-700">Havola orqali</span>
+                  <span className="text-gray-700 dark:text-gray-200">URL orqali</span>
                 </label>
-                <label className="flex items-center space-x-2">
+                <label className="flex items-center">
                   <input
                     type="radio"
                     name="imageMethod"
                     value="file"
                     checked={formData.imageMethod === 'file'}
                     onChange={handleChange}
-                    className="text-blue-600 focus:ring-blue-500"
+                    className="mr-2"
                   />
-                  <span className="text-sm font-medium text-gray-700">Fayl yuklash</span>
+                  <span className="text-gray-700 dark:text-gray-200">Fayl yuklash</span>
                 </label>
               </div>
 
               {formData.imageMethod === 'url' ? (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Rasm havolasi
-                  </label>
-                  <input
-                    type="url"
-                    name="imageUrl"
-                    value={formData.imageUrl}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="https://example.com/image.jpg"
-                    required={formData.imageMethod === 'url'}
-                  />
-                </div>
+                <input
+                  type="url"
+                  name="imageUrl"
+                  value={formData.imageUrl}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-dark-600 rounded-lg 
+                    text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500
+                    bg-white dark:bg-dark-700
+                    focus:ring-2 focus:ring-primary-500/20 dark:focus:ring-primary-400/20 
+                    focus:border-primary-500 dark:focus:border-primary-400"
+                  placeholder="Rasm URL manzilini kiriting"
+                />
               ) : (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Rasm yuklash
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="file"
-                      name="image"
-                      onChange={handleChange}
-                      accept="image/*"
-                      className="hidden"
-                      id="file-upload-add"
-                      required={formData.imageMethod === 'file'}
-                    />
-                    <label
-                      htmlFor="file-upload-add"
-                      className="w-full flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 cursor-pointer"
-                    >
-                      <svg className="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                      Rasm tanlash
-                    </label>
-                  </div>
-                </div>
-              )}
-
-              {/* Image Preview */}
-              {(imagePreview || formData.imageUrl) && (
-                <div className="mt-4">
-                  <div className="flex justify-between items-center mb-2">
-                    <label className="block text-sm font-medium text-gray-700">
-                      Rasm ko'rinishi
-                    </label>
-                    <button
-                      type="button"
-                      onClick={handleCancelImage}
-                      className="p-1 hover:bg-gray-100 rounded-full transition-colors"
-                      title="Rasmni o'chirish"
-                    >
-                      <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    </button>
-                  </div>
-                  <div className="relative w-full h-48 bg-gray-100 rounded-lg overflow-hidden">
-                    {imageError ? (
-                      <div className="absolute inset-0 flex items-center justify-center text-gray-500">
-                        <span>Noto'g'ri rasm havolasi</span>
-                      </div>
-                    ) : (
-                      <img
-                        src={imagePreview || formData.imageUrl}
-                        alt="Mahsulot ko'rinishi"
-                        onError={handleImageError}
-                        className="w-full h-full object-cover"
-                      />
-                    )}
-                  </div>
-                </div>
+                <input
+                  type="file"
+                  name="image"
+                  onChange={handleChange}
+                  accept="image/*"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-dark-600 rounded-lg 
+                    text-gray-900 dark:text-white
+                    bg-white dark:bg-dark-700
+                    focus:ring-2 focus:ring-primary-500/20 dark:focus:ring-primary-400/20 
+                    focus:border-primary-500 dark:focus:border-primary-400"
+                />
               )}
             </div>
-          </form>
-        </div>
 
-        <div className="p-6 border-t bg-gray-50">
-          <button
-            type="submit"
-            disabled={loading || (formData.imageMethod === 'url' ? !formData.imageUrl : !formData.image) || (formData.isSellerAvailable && !formData.phoneNumber)}
-            className="w-full bg-gray-900 text-white py-2 rounded hover:bg-gray-800 transition-colors disabled:opacity-50"
-            onClick={handleSubmit}
-          >
-            {loading ? 'Qo\'shilmoqda...' : 'Mahsulotni qo\'shish'}
-          </button>
+            {imagePreview && !imageError && (
+              <div className="relative">
+                <img
+                  src={imagePreview}
+                  alt="Preview"
+                  onError={handleImageError}
+                  className="w-full h-48 object-cover rounded-lg"
+                />
+                <button
+                  type="button"
+                  onClick={handleCancelImage}
+                  className="absolute top-2 right-2 bg-white dark:bg-dark-800 text-gray-600 dark:text-gray-300 p-1 rounded-full 
+                    hover:bg-gray-100 dark:hover:bg-dark-700"
+                >
+                  ✕
+                </button>
+              </div>
+            )}
+
+            <div className="flex items-center mb-4">
+              <input
+                type="checkbox"
+                name="isSellerAvailable"
+                checked={formData.isSellerAvailable}
+                onChange={(e) => setFormData(prev => ({ ...prev, isSellerAvailable: e.target.checked }))}
+                className="h-4 w-4 text-primary-500 dark:text-primary-400 border-gray-300 dark:border-dark-600 rounded"
+              />
+              <label className="ml-2 text-sm text-gray-700 dark:text-gray-200">
+                Sotuvchi bilan bog'lanish mumkin
+              </label>
+            </div>
+
+            {formData.isSellerAvailable && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
+                  Telefon raqam
+                </label>
+                <input
+                  type="tel"
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-dark-600 rounded-lg 
+                    text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500
+                    bg-white dark:bg-dark-700
+                    focus:ring-2 focus:ring-primary-500/20 dark:focus:ring-primary-400/20 
+                    focus:border-primary-500 dark:focus:border-primary-400"
+                  placeholder="+998 90 123 45 67"
+                />
+              </div>
+            )}
+
+            <div className="flex justify-end gap-3 mt-6">
+              <button
+                type="button"
+                onClick={onClose}
+                className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 
+                  bg-white dark:bg-dark-700 border border-gray-300 dark:border-dark-600 
+                  rounded-lg hover:bg-gray-50 dark:hover:bg-dark-600"
+              >
+                Bekor qilish
+              </button>
+              <button
+                type="submit"
+                disabled={loading}
+                className="px-4 py-2 text-sm font-medium text-white bg-primary-500 
+                  rounded-lg hover:bg-primary-600 focus:outline-none focus:ring-2 
+                  focus:ring-primary-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? 'Yuklanmoqda...' : 'Qo\'shish'}
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

@@ -18,6 +18,13 @@ const ITEMS_PER_PAGE = 12;
 function App() {
   const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme') === 'dark' ||
+        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    }
+    return false;
+  });
 
   // Get URL search params
   const searchParams = new URLSearchParams(window.location.search);
@@ -71,6 +78,16 @@ function App() {
     });
   }, [searchTerm, selectedType, currentPage]);
 
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDark]);
+
   // Get unique product types and convert to Uzbek
   const typeMapping = {
     'Food': 'Oziq-ovqat',
@@ -93,19 +110,22 @@ function App() {
     }));
 
   const filteredProducts = (allProducts || []).filter(product => {
-    const matchesSearch = searchTerm 
-      ? product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (typeMapping[product.type]?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
-        product.type.toLowerCase().includes(searchTerm.toLowerCase())
-      : true;
-
-    const matchesType = !selectedType || (
-      selectedType.en 
-        ? product.type === selectedType.en
-        : product.type === selectedType
-    );
-
-    return matchesSearch && matchesType;
+    if (!searchTerm) return true;
+    
+    const normalizedSearch = searchTerm.toLowerCase().trim();
+    const searchTerms = normalizedSearch.split(/\s+/); // Split search into words
+    
+    // Check if all search terms are found in any of the searchable fields
+    return searchTerms.every(term => {
+      const searchableText = [
+        product.name,
+        typeMapping[product.type] || '',
+        product.type || '',
+        product.description || ''  // Added description field if it exists
+      ].map(text => text.toLowerCase()).join(' ');
+      
+      return searchableText.includes(term);
+    });
   });
 
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
@@ -141,10 +161,9 @@ function App() {
     <Router>
       <AuthProvider>
         <AlertProvider>
-<Meta />
-
-          <div className="min-h-screen bg-gray-50">
-            <Navbar />
+          <div className="min-h-screen bg-white dark:bg-dark-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+            <Meta />
+            <Navbar isDark={isDark} setIsDark={setIsDark} />
             <Routes>
               <Route path="/" element={
                 <div className="py-6">
