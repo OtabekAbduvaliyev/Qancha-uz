@@ -7,8 +7,8 @@ const Meta = ({ productDetail }) => {
   
   const defaultMeta = {
     url: baseUrl,
-    title: "Qancha.uz - Kerak narxni shu yerdan toping!",
-    description: "Your trusted marketplace for buying and selling products in Uzbekistan. Find the best deals and connect with sellers near you.",
+    title: "Qancha.uz - O'zbekistondagi barcha maxsulotlar narxlari",
+    description: "O‘zbekiston bo‘ylab mahsulot narxlarini osongina toping. Eng yaxshi takliflarni ko‘ring va narxlarni solishtiring",
     image: defaultImage,
     keywords: "marketplace, uzbekistan, online shopping, buy, sell, products, qancha, tashkent"
   };
